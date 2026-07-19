@@ -1,0 +1,455 @@
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+/* ==========================================================================
+   1. BOOT SEQUENCE
+   An NWS advisory prints, the radar acquires lock, a shutter wipes up.
+   Total budget 2.2s. Skippable with any key or click. Skipped entirely
+   under reduced motion and on repeat visits within the session.
+   ========================================================================== */
+.boot {
+  position: fixed; inset: 0; z-index: var(--z-boot);
+  display: grid; place-items: center;
+  background: var(--void);
+  overflow: hidden;
+}
+.boot[hidden] { display: none; }
+.boot::after { /* shutter that wipes the screen away */
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--void);
+  transform-origin: top;
+  transition: transform var(--t-film) var(--ease-io);
+}
+.boot.is-done::after { transform: scaleY(0); }
+.boot.is-done { pointer-events: none; }
+
+.boot__inner {
+  position: relative; z-index: 2;
+  width: min(640px, 84vw);
+  transition: opacity 420ms var(--ease-out), filter 420ms var(--ease-out);
+}
+.boot.is-done .boot__inner { opacity: 0; filter: blur(6px); }
+
+.boot__scope { position: relative; width: 100%; aspect-ratio: 1; max-height: 46vh; margin-inline: auto; }
+.boot__scope canvas { width: 100%; height: 100%; }
+
+.boot__mark {
+  position: absolute; inset: 0; margin: auto;
+  width: 34%; height: auto;
+  opacity: 0;
+  animation: bootMark 900ms 900ms var(--ease-out) forwards;
+}
+@keyframes bootMark {
+  from { opacity: 0; transform: scale(.94) rotate(-6deg); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+.boot__feed {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--steel);
+  padding-top: .75rem;
+  min-height: 5.5rem;
+}
+.boot__line { display: block; color: var(--advisory); opacity: 0; }
+.boot__line.is-on { opacity: 1; }
+.boot__line em { font-style: normal; color: var(--ash); }
+
+.boot__bar {
+  margin-top: .75rem; height: 2px; background: var(--iron);
+  position: relative; overflow: hidden;
+}
+.boot__bar span {
+  position: absolute; inset: 0 auto 0 0;
+  width: var(--p, 0%);
+  background: linear-gradient(90deg, var(--red-deep), var(--red-hot));
+  transition: width 240ms linear;
+}
+.boot__skip {
+  position: absolute; right: var(--gutter); bottom: var(--gutter); z-index: 3;
+  color: var(--ash);
+}
+.boot__skip:hover { color: var(--bone); }
+
+/* ==========================================================================
+   2. NAVIGATION
+   Utility bar (thin, mono, game-state) + main bar (mark, primary, actions)
+   + mega panel. Transparent over the hero, then it forges into steel.
+   ========================================================================== */
+.nav {
+  position: fixed; top: 0; right: 0; left: var(--rail); z-index: var(--z-nav);
+  transition: transform var(--t-mid) var(--ease-out);
+}
+.nav[data-hidden="true"] { transform: translateY(-100%); }
+
+.nav__utility {
+  display: none;
+  align-items: center; gap: 1.5rem;
+  height: 30px; padding-inline: var(--gutter);
+  border-bottom: 1px solid rgba(43,48,55,.7);
+  background: rgba(8,9,10,.94);
+  backdrop-filter: blur(12px);
+}
+@media (min-width: 900px) { .nav__utility { display: flex; } }
+.nav__utility .push { display: flex; gap: 1.25rem; }
+
+.nav__bar {
+  position: relative;
+  display: flex; align-items: center; gap: clamp(1rem, 2vw, 2.5rem);
+  height: 70px; padding-inline: var(--gutter);
+  transition: background var(--t-ui) var(--ease-out),
+              border-color var(--t-ui) var(--ease-out),
+              height var(--t-ui) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-stuck .nav__bar {
+  height: 60px;
+  background: rgba(10,11,13,.97);
+  backdrop-filter: blur(18px) saturate(1.2);
+  border-bottom-color: var(--steel);
+}
+.nav.is-stuck .nav__utility { border-bottom-color: transparent; }
+
+.nav__mark { display: flex; align-items: center; gap: .75rem; }
+.nav__mark img { width: 44px; transition: width var(--t-ui) var(--ease-out); }
+.nav.is-stuck .nav__mark img { width: 36px; }
+.nav__wordmark {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--bone); line-height: 1;
+}
+@media (max-width: 560px) { .nav__wordmark { display: none; } }
+
+.nav__primary { display: none; gap: clamp(.25rem, 1.4vw, 1.5rem); }
+@media (min-width: 1024px) { .nav__primary { display: flex; } }
+
+.nav__link {
+  position: relative;
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .5rem .25rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--nickel);
+  transition: color var(--t-fast) var(--ease-out);
+}
+.nav__link::after { /* underline grows from the left, never centred-fade */
+  content: ""; position: absolute; left: 0; bottom: .15rem;
+  width: 100%; height: 2px; background: var(--red);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t-ui) var(--ease-out);
+}
+.nav__link:hover, .nav__link[aria-expanded="true"], .nav__link[aria-current] { color: var(--pure); }
+.nav__link:hover::after, .nav__link[aria-expanded="true"]::after, .nav__link[aria-current]::after { transform: scaleX(1); }
+
+.nav__actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+
+.nav__burger {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--steel);
+}
+@media (min-width: 1024px) { .nav__burger { display: none; } }
+.nav__burger span {
+  display: block; width: 18px; height: 1.5px; background: var(--bone);
+  transition: transform var(--t-ui) var(--ease-snap), opacity var(--t-fast);
+}
+.nav__burger span + span { margin-top: 4px; }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* ---- Mega panel ---------------------------------------------------------- */
+.mega {
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: rgba(10,11,13,.97);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid var(--red);
+  border-bottom: 1px solid var(--steel);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(1.5rem, 3vw, 2.75rem) var(--gutter) clamp(1.75rem, 3vw, 3rem);
+  display: none;
+}
+.mega[data-open="true"] { display: block; animation: megaIn 320ms var(--ease-out); }
+@keyframes megaIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+
+.mega__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+@media (max-width: 1200px) { .mega__grid { grid-template-columns: repeat(3, 1fr); } }
+.mega__col { display: grid; gap: .6rem; align-content: start; }
+.mega__col > .mono { border-bottom: 1px solid var(--steel); padding-bottom: .5rem; margin-bottom: .25rem; }
+.mega__item {
+  font-size: var(--fs-small); color: var(--nickel);
+  padding: .18rem 0;
+  transition: color var(--t-fast), transform var(--t-fast) var(--ease-out);
+}
+.mega__item:hover { color: var(--pure); transform: translateX(4px); }
+.mega__feature { border: 1px solid var(--steel); padding: 1rem; }
+
+/* ---- Mobile drawer ------------------------------------------------------- */
+.drawer {
+  position: fixed; inset: 0; z-index: var(--z-drawer);
+  background: var(--void);
+  transform: translateY(-100%);
+  transition: transform var(--t-mid) var(--ease-io);
+  overflow-y: auto;
+  padding: 90px var(--gutter) var(--s-8);
+}
+.drawer[data-open="true"] { transform: none; }
+.drawer__group + .drawer__group { border-top: 1px solid var(--steel); }
+.drawer__toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 0;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.75rem; letter-spacing: .02em; text-transform: uppercase;
+  color: var(--bone);
+}
+.drawer__toggle svg { transition: transform var(--t-ui) var(--ease-out); }
+.drawer__toggle[aria-expanded="true"] svg { transform: rotate(45deg); }
+.drawer__panel { display: none; padding-bottom: 1.25rem; }
+.drawer__panel[data-open="true"] { display: grid; gap: .55rem; }
+.drawer__panel a { color: var(--nickel); font-size: var(--fs-small); }
+
+/* ==========================================================================
+   3. BUTTONS
+   Sheared parallelogram, hard edges, a fill that wipes in from the left.
+   ========================================================================== */
+.btn {
+  --btn-bg: var(--red);
+  --btn-fg: var(--pure);
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .95rem 1.6rem;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.0625rem; letter-spacing: .08em; text-transform: uppercase;
+  line-height: 1;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: color var(--t-ui) var(--ease-out), transform var(--t-fast) var(--ease-out);
+  will-change: transform;
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--bone);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform var(--t-ui) var(--ease-io);
+}
+.btn:hover::before { transform: scaleX(1); transform-origin: left; }
+.btn:hover { color: var(--void); }
+.btn:active { transform: translateY(1px); }
+
+/* The shear is what makes the primary button read as a primary button, so
+   the secondary keeps square corners. It is also a correctness fix: a 1px
+   border under a clip-path gets sliced off along the angled edges, which
+   left the outline rendering as two floating horizontal rules. */
+.btn--ghost {
+  --btn-bg: transparent; --btn-fg: var(--bone);
+  border-color: var(--gunmetal);
+  clip-path: none;
+}
+.btn--ghost:hover { color: var(--void); border-color: var(--bone); }
+.btn--steel { clip-path: none; }
+.btn--steel { --btn-bg: var(--iron); --btn-fg: var(--bone); border-color: var(--steel); }
+.btn--sm { padding: .6rem 1rem; font-size: .9375rem; }
+.btn--block { width: 100%; }
+
+/* Text link with a travelling rule. */
+.link {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-data); font-size: var(--fs-micro);
+  letter-spacing: var(--track-micro); text-transform: uppercase;
+  color: var(--bone);
+  padding-bottom: .35rem;
+  border-bottom: 1px solid var(--gunmetal);
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+.link:hover { color: var(--red-hot); border-color: var(--red); }
+.link svg { transition: transform var(--t-ui) var(--ease-out); }
+.link:hover svg { transform: translateX(4px); }
+
+/* ==========================================================================
+   4. PANELS + CORNER BRACKETS
+   ========================================================================== */
+.panel {
+  position: relative;
+  background: var(--iron);
+  border: 1px solid var(--steel);
+}
+.panel--pitch { background: var(--pitch); }
+.panel--pad { padding: clamp(1.25rem, 2.2vw, 2rem); }
+
+/* Corner ticks. Two corners, not four - restraint. */
+.bracket::before, .bracket::after {
+  content: ""; position: absolute; width: 12px; height: 12px;
+  border: 1px solid var(--red); pointer-events: none;
+}
+.bracket::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+.bracket::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+/* ==========================================================================
+   5. BADGES + STATUS
+   ========================================================================== */
+.badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .55rem;
+  font-family: var(--font-data); font-size: var(--fs-nano);
+  letter-spacing: .18em; text-transform: uppercase;
+  border: 1px solid var(--gunmetal); color: var(--nickel);
+  white-space: nowrap;
+}
+.badge--live { border-color: var(--red); color: var(--red-hot); }
+.badge--live::before {
+  content: ""; width: 6px; height: 6px; background: var(--red-hot);
+  border-radius: 50%;
+  animation: pulse 1.6s var(--ease-io) infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,34,51,.6); } 50% { opacity: .55; box-shadow: 0 0 0 6px rgba(255,34,51,0); } }
+.badge--advisory { border-color: rgba(255,176,0,.5); color: var(--advisory); }
+.badge--cup { border-color: var(--gunmetal); color: var(--bone); background: var(--graphite); }
+
+/* ==========================================================================
+   6. CARDS
+   ========================================================================== */
+.card {
+  position: relative;
+  display: grid; align-content: start;
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  overflow: hidden;
+  transition: border-color var(--t-ui) var(--ease-out),
+              transform var(--t-ui) var(--ease-out),
+              box-shadow var(--t-ui) var(--ease-out);
+}
+.card:hover { border-color: var(--gunmetal); transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.card:focus-within { border-color: var(--red); }
+
+.card__media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; }
+.card__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.01);
+  transition: transform var(--t-slow) var(--ease-out), filter var(--t-slow) var(--ease-out);
+  filter: saturate(.85) contrast(1.05);
+}
+.card:hover .card__media img { transform: scale(1.06); filter: saturate(1) contrast(1.08); }
+/* Bottom scrim so text over media always clears contrast. */
+.card__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,9,10,0) 35%, rgba(8,9,10,.88));
+}
+.card__body { padding: clamp(1rem, 1.6vw, 1.5rem); display: grid; gap: .6rem; }
+.card__title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.125rem, 1.5vw, 1.4rem); line-height: 1.02;
+  letter-spacing: .005em; text-transform: uppercase; color: var(--bone);
+  text-wrap: balance;
+}
+.card:hover .card__title { color: var(--pure); }
+.card__excerpt { font-size: var(--fs-small); color: var(--ash); }
+
+/* Whole-card link target without nesting interactive elements. */
+.card__hit::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+
+/* Red wipe that runs along the top edge on hover. */
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--red); transform: scaleX(0); transform-origin: left; z-index: 3;
+  transition: transform var(--t-mid) var(--ease-out);
+}
+.card:hover::before, .card:focus-within::before { transform: scaleX(1); }
+
+/* ==========================================================================
+   7. TABLES
+   ========================================================================== */
+.table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.table caption { text-align: left; padding-bottom: .75rem; }
+.table th, .table td { padding: .8rem .75rem; text-align: right; border-bottom: 1px solid var(--steel); }
+.table th:first-child, .table td:first-child { text-align: left; }
+.table thead th {
+  font-family: var(--font-data); font-size: var(--fs-nano);
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ash); font-weight: 400;
+  border-bottom-color: var(--gunmetal);
+  position: sticky; top: 0; background: var(--void); z-index: 1;
+}
+.table tbody tr { transition: background var(--t-fast); }
+.table tbody tr:hover { background: var(--iron); }
+.table td.is-key { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--pure); }
+.table-scroll { overflow-x: auto; }
+
+/* ==========================================================================
+   8. FORMS
+   ========================================================================== */
+.field { display: grid; gap: .4rem; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: .85rem 1rem;
+  background: var(--void);
+  border: 1px solid var(--steel);
+  color: var(--bone);
+  font-size: var(--fs-small);
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.field input::placeholder { color: var(--ash); }
+.field input:hover, .field select:hover { border-color: var(--gunmetal); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--red); background: var(--pitch);
+}
+.field__error { color: var(--red-hot); }
+.field__hint { color: var(--ash); }
+
+.chip-set { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  padding: .5rem .9rem;
+  font-family: var(--font-data); font-size: var(--fs-micro);
+  letter-spacing: .16em; text-transform: uppercase;
+  border: 1px solid var(--steel); color: var(--nickel);
+  transition: all var(--t-fast) var(--ease-out);
+}
+.chip:hover { border-color: var(--gunmetal); color: var(--bone); }
+.chip[aria-pressed="true"] { background: var(--red); border-color: var(--red); color: var(--pure); }
+
+/* ==========================================================================
+   10. REVEALS
+   Two variants only: rise for blocks, wipe for headlines. Staggered by --i.
+   ========================================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease-out) calc(var(--i, 0) * 70ms),
+              transform 700ms var(--ease-out) calc(var(--i, 0) * 70ms);
+}
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Wipe variant.
+   The obvious implementation is clip-path: inset(0 100% 0 0) on the element
+   itself. It does not work: clip-path shrinks the element's intersection
+   rectangle to zero area, so IntersectionObserver never reports it as
+   visible and the reveal that would un-clip it never fires. The element
+   hides itself from the thing meant to show it.
+   Instead the element keeps its full box and an inner block is translated
+   out of an overflow-hidden parent. Geometry stays intact, the observer
+   sees it, and with JS off the heading simply renders normally. */
+[data-reveal="wipe"] { opacity: 1; transform: none; overflow: hidden; }
+[data-reveal="wipe"] > .wipe-inner {
+  display: block;
+  transform: translateY(104%);
+  transition: transform 820ms var(--ease-out) calc(var(--i, 0) * 70ms);
+}
+[data-reveal="wipe"].is-in > .wipe-inner { transform: none; }
+
+/* ==========================================================================
+   11. MARQUEE - one per page maximum
+   ========================================================================== */
+.marquee { overflow: hidden; border-block: 1px solid var(--steel); background: var(--pitch); }
+.marquee__track { display: flex; width: max-content; animation: slide 42s linear infinite; }
+.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
+.marquee__item {
+  display: inline-flex; align-items: center; gap: 1.25rem;
+  padding: .7rem 1.5rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--nickel);
+  white-space: nowrap;
+}
+.marquee__item b { color: var(--red-hot); font-weight: 900; }
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }

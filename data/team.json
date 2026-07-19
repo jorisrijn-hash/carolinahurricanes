@@ -1,0 +1,9 @@
+{
+  "abbrev": "CAR",
+  "name": "Carolina Hurricanes",
+  "arena": { "name": "Lenovo Center", "city": "Raleigh", "state": "NC",
+             "capacity": 18700, "lat": 35.8033, "lon": -78.7217 },
+  "record": { "w": 53, "l": 22, "otl": 7, "pts": 113, "season": "2025-26" },
+  "cups": [2006, 2026],
+  "_source": "Uploaded nhl.com/hurricanes snapshot, 18 July 2026."
+}

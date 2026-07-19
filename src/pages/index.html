@@ -1,0 +1,590 @@
+<!--meta
+section: Home
+title: Carolina Hurricanes | Stanley Cup Champions
+description: Official home of the Carolina Hurricanes. 2026 Stanley Cup champions. Schedule, roster, tickets, live game coverage and news from Lenovo Center in Raleigh.
+-->
+<main id="main">
+
+  <!-- ====================================================================
+       HERO
+       ==================================================================== -->
+  <section class="hero ice" data-coord="35.8033&deg;N 78.7217&deg;W">
+    <!-- Hero film. Sources are attached by JS after the client is checked,
+         so nothing downloads for data saver, reduced motion or a 2G link. -->
+    <div class="hero__media" aria-hidden="true">
+      <video data-hero-video playsinline muted loop preload="none"
+             width="1920" height="1080"
+             poster="assets/video/hero-poster-1280.jpg"></video>
+    </div>
+    <div class="hero__atmos" aria-hidden="true"><canvas data-atmos></canvas></div>
+    <div class="hero__rig" aria-hidden="true"></div>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <!-- Faceoff circle anchored to the headline, not floated as decoration. -->
+    
+
+    <div class="shell hero__inner">
+      <div>
+        <div class="hero__eyebrow">
+          <span class="badge badge--advisory">Advisory 001</span>
+          <span class="mono">2026&ndash;27 regular season</span>
+          <span class="mono">84 games</span>
+        </div>
+
+        <h1 class="display display--hero hero__title">
+          <span><i style="--l:0">The</i></span>
+          <span><i style="--l:1">Storm</i></span>
+          <span><i style="--l:2" class="ghost">Returns</i></span>
+        </h1>
+
+        <p class="lede hero__sub">
+          The Cup came to Raleigh in June. Eighty-four games start on 29 September,
+          and every one of them is somebody's shot at taking it back.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn" href="tickets.html" data-magnetic>Opening night tickets</a>
+          <a class="btn btn--ghost" href="schedule.html" data-magnetic>Full schedule</a>
+          <button class="hero__toggle" type="button" data-hero-toggle aria-pressed="false">
+            <span class="hero__toggle-icon" aria-hidden="true"></span>
+            <span class="mono"><span data-hero-toggle-label>Play</span> film</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Radar console -->
+      <aside class="console bracket" aria-labelledby="console-h" data-reveal>
+        <h2 class="visually-hidden" id="console-h">Next game tracker</h2>
+        <div class="console__head">
+          <span class="mono mono--red">Inbound system</span>
+          <span class="mono">Scope range 1400 km</span>
+        </div>
+        <div class="console__scope">
+          <!-- Blip position is computed from real coordinates: Amerant Bank
+               Arena, Sunrise FL relative to Lenovo Center, Raleigh NC. -->
+          <canvas data-radar data-lat="26.1585" data-lon="-80.3255" data-code="FLA"
+                  role="img" aria-label="Radar showing Florida approaching Raleigh from the south, 900 kilometres out"></canvas>
+        </div>
+        <div class="console__legend">
+          <div>
+            <span class="mono">Origin</span>
+            <b>Lenovo Center</b>
+          </div>
+          <div>
+            <span class="mono">Landfall</span>
+            <b><time datetime="2026-09-29T17:00:00-04:00">29 Sep &middot; 17:00</time></b>
+          </div>
+        </div>
+        <div class="console__clock">
+          <div class="countdown" data-countdown="2026-09-29T17:00:00-04:00">
+            <div class="countdown__unit"><span class="countdown__val" data-unit="d">00</span><span class="mono">Days</span></div>
+            <div class="countdown__sep" aria-hidden="true"></div>
+            <div class="countdown__unit"><span class="countdown__val" data-unit="h">00</span><span class="mono">Hrs</span></div>
+            <div class="countdown__sep" aria-hidden="true"></div>
+            <div class="countdown__unit"><span class="countdown__val" data-unit="m">00</span><span class="mono">Min</span></div>
+            <div class="countdown__sep" aria-hidden="true"></div>
+            <div class="countdown__unit"><span class="countdown__val" data-unit="s">00</span><span class="mono">Sec</span></div>
+            <p class="visually-hidden" data-countdown-live aria-live="polite"></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- The page sits on the boards: the hero ends where the ice does. -->
+  <div class="boards" aria-hidden="true"></div>
+
+  <!-- ====================================================================
+       GAME STRIP - the schedule band from the live site, given hierarchy
+       ==================================================================== -->
+  <section class="strip" aria-label="Upcoming games">
+    <div class="strip__inner">
+      <div class="strip__label"><span class="mono mono--bone">Next eight</span></div>
+      <div class="rail-scroll" style="padding-bottom:0">
+        {{game_strip}}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       ADVISORY - next game, written as a bulletin
+       ==================================================================== -->
+  <section class="section section--seam" aria-labelledby="next-h" data-coord="NEXT SYSTEM / FLA">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta" data-reveal>
+          <span class="mono mono--red">Next system</span>
+          <span class="mono">Tuesday 29 September 2026</span>
+          <span class="mono">Lenovo Center &middot; Raleigh NC</span>
+        </div>
+        <h2 class="display display--2 head__title" id="next-h" data-reveal="wipe">Opening night</h2>
+      </div>
+
+      <div class="advisory" data-reveal>
+        <div class="advisory__main">
+          <span class="mono">Home opener &middot; banner raising</span>
+          <div class="advisory__matchup">
+            <div class="advisory__team">
+              <b>FLA</b>
+              <span class="mono">Florida &middot; 40&ndash;38&ndash;4</span>
+            </div>
+            <span class="advisory__vs">AT</span>
+            <div class="advisory__team is-home">
+              <b>CAR</b>
+              <span class="mono">Carolina &middot; 53&ndash;22&ndash;7</span>
+            </div>
+          </div>
+          <p class="prose" style="color:var(--nickel)">
+            The banner goes up before the anthem. Doors open two hours early, and every
+            seat gets a rally towel. Arrive for the raising, stay for the first shift.
+          </p>
+          <div class="row" style="margin-top:1.75rem">
+            <a class="btn" href="tickets.html" data-magnetic>Get tickets</a>
+            <a class="link" href="game.html">Game preview
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="advisory__side">
+          <div class="advisory__row"><span class="mono">Puck drop</span><b>17:00 EDT</b></div>
+          <div class="advisory__row"><span class="mono">Broadcast</span><b>FDSCS &middot; ESPN+</b></div>
+          <div class="advisory__row"><span class="mono">Radio</span><b>99.9 The Fan</b></div>
+          <div class="advisory__row"><span class="mono">Doors</span><b>15:00 EDT</b></div>
+          <div class="advisory__row"><span class="mono">Promotion</span><b>Rally towel</b></div>
+          <div class="advisory__row"><span class="mono">Season series</span><b>4 meetings</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       RECORD BOARD
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="record-h" data-coord="2025-26 FINAL">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Season in the book</span>
+          <span class="mono">2025&ndash;26 &middot; 82 games</span>
+          <span class="mono mono--amber">Sample data pending API</span>
+        </div>
+        <h2 class="display display--2 head__title" id="record-h" data-reveal="wipe">The record</h2>
+      </div>
+
+      <div class="board" data-reveal>
+        <div class="board__cell">
+          <div class="board__val num"><span data-count="{{record_w}}">{{record_w}}</span></div>
+          <span class="mono">Wins</span>
+        </div>
+        <div class="board__cell">
+          <div class="board__val num"><span data-count="{{record_l}}">{{record_l}}</span></div>
+          <span class="mono">Losses</span>
+        </div>
+        <div class="board__cell">
+          <div class="board__val num"><span data-count="{{record_otl}}">{{record_otl}}</span></div>
+          <span class="mono">Overtime</span>
+        </div>
+        <div class="board__cell">
+          <div class="board__val is-red num"><span data-count="{{record_pts}}">{{record_pts}}</span></div>
+          <span class="mono">Points</span>
+        </div>
+        <div class="board__cell">
+          <div class="board__val num"><span data-count="16">16</span></div>
+          <span class="mono">Playoff wins</span>
+        </div>
+        <div class="board__cell">
+          <div class="board__val is-red num">2</div>
+          <span class="mono">Stanley Cups</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       LEAD STORY + TOP STORIES
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="news-h" data-coord="NEWS DESK">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">News desk</span>
+          <span class="mono">Filed 18 July 2026</span>
+          <a class="mono push" href="news.html">All stories</a>
+        </div>
+        <h2 class="display display--2 head__title spray" id="news-h" data-reveal="wipe">Latest</h2>
+      </div>
+
+      <div class="grid grid--12">
+        <!-- Lead -->
+        <article class="span-7" data-reveal>
+          <a class="card" href="article.html" style="height:100%">
+            <div class="card__media" style="aspect-ratio:16/9">
+              <picture><source type="image/avif" srcset="assets/img/photo/hero-celebration-640.avif 640w, assets/img/photo/hero-celebration-1280.avif 1280w, assets/img/photo/hero-celebration-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/hero-celebration-640.webp 640w, assets/img/photo/hero-celebration-1280.webp 1280w, assets/img/photo/hero-celebration-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/hero-celebration-1920.jpg" alt="Carolina Hurricanes player celebrating a goal in front of the net" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+            </div>
+            <div class="card__body">
+              <div class="row">
+                <span class="badge">Feature</span>
+                <span class="mono">6 min read</span>
+              </div>
+              <h3 class="card__title" style="font-size:clamp(1.5rem,2.6vw,2.25rem)">
+                Need to know: the Canes' 2026&ndash;27 schedule
+              </h3>
+              <p class="card__excerpt">
+                A closer look at the club's first 84-game campaign, the six-game road trip in
+                January that decides the second half, and where the banner night lands.
+              </p>
+            </div>
+          </a>
+        </article>
+
+        <!-- Secondary stack -->
+        <div class="span-5 stack">
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media" style="aspect-ratio:16/9">
+                <picture><source type="image/avif" srcset="assets/img/photo/arena-bowl-551.avif 551w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/arena-bowl-551.webp 551w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/arena-bowl-551.jpg" alt="Full arena bowl during a Hurricanes home game" width="551" height="413" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Press release</span>
+                <h3 class="card__title">Canes announce 2026&ndash;27 regular season schedule</h3>
+              </div>
+            </a>
+          </article>
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media" style="aspect-ratio:16/9">
+                <picture><source type="image/avif" srcset="assets/img/photo/boards-celebration-640.avif 640w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/boards-celebration-640.webp 640w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/boards-celebration-640.jpg" alt="Hurricanes players celebrating against the boards" width="640" height="360" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Roster news</span>
+                <h3 class="card__title">Canes sign Neuchev to a one-year contract</h3>
+              </div>
+            </a>
+          </article>
+        </div>
+
+        <!-- Row of four -->
+        <div class="span-12 grid grid--4" data-stagger>
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media">
+                <picture><source type="image/avif" srcset="assets/img/photo/celebration-team-640.avif 640w, assets/img/photo/celebration-team-1280.avif 1280w, assets/img/photo/celebration-team-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/celebration-team-640.webp 640w, assets/img/photo/celebration-team-1280.webp 1280w, assets/img/photo/celebration-team-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/celebration-team-1920.jpg" alt="Hurricanes players celebrating together on the ice" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Championship summer</span>
+                <h3 class="card__title">How the Canes are spending their day with the Cup</h3>
+              </div>
+            </a>
+          </article>
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media">
+                <picture><source type="image/avif" srcset="assets/img/photo/arena-bowl-551.avif 551w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/arena-bowl-551.webp 551w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/arena-bowl-551.jpg" alt="Full arena bowl during a Hurricanes home game" width="551" height="413" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Features</span>
+                <h3 class="card__title">Looking ahead: the 2026&ndash;27 organizational outlook</h3>
+              </div>
+            </a>
+          </article>
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media">
+                <picture><source type="image/avif" srcset="assets/img/photo/net-scramble-640.avif 640w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/net-scramble-640.webp 640w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/net-scramble-640.jpg" alt="Scramble in front of the net" width="640" height="360" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Prospects</span>
+                <h3 class="card__title">Final thoughts from 2026 development camp</h3>
+              </div>
+            </a>
+          </article>
+          <article data-reveal>
+            <a class="card" href="article.html">
+              <div class="card__media">
+                <picture><source type="image/avif" srcset="assets/img/photo/hero-celebration-640.avif 640w, assets/img/photo/hero-celebration-1280.avif 1280w, assets/img/photo/hero-celebration-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/hero-celebration-640.webp 640w, assets/img/photo/hero-celebration-1280.webp 1280w, assets/img/photo/hero-celebration-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/hero-celebration-1920.jpg" alt="Carolina Hurricanes player celebrating a goal in front of the net" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+              </div>
+              <div class="card__body">
+                <span class="mono">Storm Tracker</span>
+                <h3 class="card__title">Canes offseason player tracker</h3>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       MARQUEE - one per page
+       ==================================================================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" data-marquee>
+      <span class="marquee__item">Stanley Cup champions <b>2006</b></span>
+      <span class="marquee__item">Stanley Cup champions <b>2026</b></span>
+      <span class="marquee__item">Lenovo Center <b>18,700</b></span>
+      <span class="marquee__item">Opening night <b>29 Sep</b></span>
+      <span class="marquee__item">Raleigh <b>North Carolina</b></span>
+      <span class="marquee__item">Take <b>warning</b></span>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       VIDEO
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="video-h" data-coord="MEDIA / VIDEO">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Media</span>
+          <span class="mono">14 clips</span>
+          <a class="mono push" href="#">All video</a>
+        </div>
+        <h2 class="display display--2 head__title" id="video-h" data-reveal="wipe">Watch</h2>
+      </div>
+
+      <div class="rail-scroll" data-stagger>
+        <article style="width:min(78vw,520px)" data-reveal>
+          <a class="card" href="#">
+            <div class="card__media" style="aspect-ratio:16/9">
+              <picture><source type="image/avif" srcset="assets/img/photo/celebration-team-640.avif 640w, assets/img/photo/celebration-team-1280.avif 1280w, assets/img/photo/celebration-team-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/celebration-team-640.webp 640w, assets/img/photo/celebration-team-1280.webp 1280w, assets/img/photo/celebration-team-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/celebration-team-1920.jpg" alt="Hurricanes players celebrating together on the ice" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+            </div>
+            <div class="card__body">
+              <div class="row"><span class="badge">13:24</span><span class="mono">Championship</span></div>
+              <h3 class="card__title">Every Canes reaction to winning the Stanley Cup</h3>
+            </div>
+          </a>
+        </article>
+        <article style="width:min(78vw,520px)" data-reveal>
+          <a class="card" href="#">
+            <div class="card__media" style="aspect-ratio:16/9">
+              <picture><source type="image/avif" srcset="assets/img/photo/hero-celebration-640.avif 640w, assets/img/photo/hero-celebration-1280.avif 1280w, assets/img/photo/hero-celebration-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/hero-celebration-640.webp 640w, assets/img/photo/hero-celebration-1280.webp 1280w, assets/img/photo/hero-celebration-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/hero-celebration-1920.jpg" alt="Carolina Hurricanes player celebrating a goal in front of the net" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+            </div>
+            <div class="card__body">
+              <div class="row"><span class="badge">1:28</span><span class="mono">Cinematic recap</span></div>
+              <h3 class="card__title">Stanley Cup Final, Game 6 at Vegas</h3>
+            </div>
+          </a>
+        </article>
+        <article style="width:min(78vw,520px)" data-reveal>
+          <a class="card" href="#">
+            <div class="card__media" style="aspect-ratio:16/9">
+              <picture><source type="image/avif" srcset="assets/img/photo/celebration-team-640.avif 640w, assets/img/photo/celebration-team-1280.avif 1280w, assets/img/photo/celebration-team-1920.avif 1920w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/celebration-team-640.webp 640w, assets/img/photo/celebration-team-1280.webp 1280w, assets/img/photo/celebration-team-1920.webp 1920w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/celebration-team-1920.jpg" alt="Hurricanes players celebrating together on the ice" width="1920" height="1080" loading="lazy" decoding="async"></picture>
+            </div>
+            <div class="card__body">
+              <div class="row"><span class="badge">4:09</span><span class="mono">On the parade route</span></div>
+              <h3 class="card__title">Seth Jarvis joins SportsCenter</h3>
+            </div>
+          </a>
+        </article>
+        <article style="width:min(78vw,520px)" data-reveal>
+          <a class="card" href="#">
+            <div class="card__media" style="aspect-ratio:16/9">
+              <picture><source type="image/avif" srcset="assets/img/photo/boards-celebration-640.avif 640w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/boards-celebration-640.webp 640w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/boards-celebration-640.jpg" alt="Hurricanes players celebrating against the boards" width="640" height="360" loading="lazy" decoding="async"></picture>
+            </div>
+            <div class="card__body">
+              <div class="row"><span class="badge">1:58</span><span class="mono">Media availability</span></div>
+              <h3 class="card__title">Rod Brind'Amour at the championship celebration</h3>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       ROSTER SPOTLIGHT
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="roster-h" data-coord="ACTIVE ROSTER">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Active roster</span>
+          <span class="mono mono--amber">Sample data pending API</span>
+          <a class="mono push" href="roster.html">Full roster</a>
+        </div>
+        <h2 class="display display--2 head__title" id="roster-h" data-reveal="wipe">The room</h2>
+      </div>
+
+      <div class="grid grid--4" data-stagger>
+        {{roster_spotlight}}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       STATISTICS - category scale
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="stats-h" data-coord="LEADERS">
+    <div class="shell">
+      <div class="grid grid--12">
+        <div class="span-4">
+          <div class="head">
+            <div class="head__meta">
+              <span class="mono mono--bone">2025&ndash;26 leaders</span>
+            </div>
+            <h2 class="display display--2 head__title" id="stats-h" data-reveal="wipe">Category<br>five</h2>
+          </div>
+          <p class="prose" style="color:var(--ash)">
+            Bar length is the raw total. The scale runs to the league leader in each
+            category, so a full bar means nobody in the NHL did more.
+          </p>
+          <a class="link" href="#" style="margin-top:1.5rem">Team statistics
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+        </div>
+
+        <div class="span-8">
+          <div class="scale" data-reveal>
+            <div class="scale__row">
+              <span class="scale__name">Sebastian Aho</span>
+              <span class="scale__val num">89</span>
+              <span class="mono" style="grid-column:1/-1;margin-bottom:-.35rem">Points</span>
+              <span class="scale__track"><span class="scale__fill" style="--w:74%"></span></span>
+            </div>
+            <div class="scale__row">
+              <span class="scale__name">Seth Jarvis</span>
+              <span class="scale__val num">41</span>
+              <span class="mono" style="grid-column:1/-1;margin-bottom:-.35rem">Goals</span>
+              <span class="scale__track"><span class="scale__fill" style="--w:68%"></span></span>
+            </div>
+            <div class="scale__row">
+              <span class="scale__name">Jaccob Slavin</span>
+              <span class="scale__val num">31</span>
+              <span class="mono" style="grid-column:1/-1;margin-bottom:-.35rem">Plus minus</span>
+              <span class="scale__track"><span class="scale__fill" style="--w:82%"></span></span>
+            </div>
+            <div class="scale__row">
+              <span class="scale__name">Brandon Bussi</span>
+              <span class="scale__val num">.921</span>
+              <span class="mono" style="grid-column:1/-1;margin-bottom:-.35rem">Save percentage</span>
+              <span class="scale__track"><span class="scale__fill" style="--w:88%"></span></span>
+            </div>
+            <div class="scale__row">
+              <span class="scale__name">Team</span>
+              <span class="scale__val num">28.4</span>
+              <span class="mono" style="grid-column:1/-1;margin-bottom:-.35rem">Power play percentage</span>
+              <span class="scale__track"><span class="scale__fill" style="--w:91%"></span></span>
+            </div>
+          </div>
+          <p class="mono mono--amber" style="margin-top:1rem">Sample data pending API</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       HISTORY / BANNERS
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="history-h" data-coord="FRANCHISE 1997-2026">
+    <div class="shell" data-stagger>
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Rafters</span>
+          <span class="mono">Hartford 1972 &middot; Raleigh 1997</span>
+          <a class="mono push" href="#">Hall of Fame</a>
+        </div>
+        <h2 class="display display--2 head__title" id="history-h" data-reveal="wipe">What hangs<br>in the rafters</h2>
+      </div>
+
+      <div class="banner-row" data-reveal>
+        <div class="banner banner--cup">
+          <span class="banner__year num">2026</span>
+          <span class="mono mono--bone">Stanley Cup champions</span>
+          <span class="mono">def. Vegas 4&ndash;2</span>
+        </div>
+        <div class="banner banner--cup">
+          <span class="banner__year num">2006</span>
+          <span class="mono mono--bone">Stanley Cup champions</span>
+          <span class="mono">def. Edmonton 4&ndash;3</span>
+        </div>
+        <div class="banner">
+          <span class="banner__year num">2002</span>
+          <span class="mono mono--bone">Eastern Conference champions</span>
+        </div>
+        <div class="banner">
+          <span class="banner__year num">10</span>
+          <span class="mono mono--bone">Retired numbers</span>
+          <span class="mono">2 &middot; 10 &middot; 17</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       COMMERCE TRIPTYCH
+       ==================================================================== -->
+  <section class="section defer" aria-label="Tickets, shop and community">
+    <div class="shell">
+      <div class="grid grid--3" data-stagger>
+        <a class="tile plate" href="tickets.html" data-reveal>
+          <picture><source type="image/avif" srcset="assets/img/photo/arena-bowl-551.avif 551w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/arena-bowl-551.webp 551w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/arena-bowl-551.jpg" alt="Full arena bowl during a Hurricanes home game" width="551" height="413" loading="lazy" decoding="async"></picture>
+          <span class="mono mono--red">Season tickets</span>
+          <span class="tile__title">Hold your seat</span>
+          <span class="mono">41 home games &middot; priority playoff access</span>
+        </a>
+        <a class="tile plate" href="shop.html" data-reveal data-spec="Product, 4:5">
+          <img src="assets/img/shop-jersey.jpg" alt="" width="1000" height="1250" loading="lazy" decoding="async">
+          <span class="mono mono--red">Team store</span>
+          <span class="tile__title">Championship<br>collection</span>
+          <span class="mono">New drops every Thursday</span>
+        </a>
+        <a class="tile plate" href="#" data-reveal>
+          <picture><source type="image/avif" srcset="assets/img/photo/boards-celebration-640.avif 640w" sizes="(min-width:900px) 50vw, 100vw"><source type="image/webp" srcset="assets/img/photo/boards-celebration-640.webp 640w" sizes="(min-width:900px) 50vw, 100vw"><img src="assets/img/photo/boards-celebration-640.jpg" alt="Hurricanes players celebrating against the boards" width="640" height="360" loading="lazy" decoding="async"></picture>
+          <span class="mono mono--red">Hurricanes Foundation</span>
+          <span class="tile__title">Off the ice</span>
+          <span class="mono">Grants, youth hockey, Canes 5K</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       PARTNERS
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="partners-h" data-coord="PARTNERS">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Corporate partners</span>
+          <span class="mono mono--amber">Logos withheld, supply licensed marks</span>
+        </div>
+        <h2 class="display display--3 head__title" id="partners-h" data-reveal="wipe">Behind the club</h2>
+      </div>
+      <div class="sponsors" data-reveal>
+        <span class="sponsor"><b>Partner 01</b><span class="mono mono--nano">Founding</span></span>
+        <span class="sponsor"><b>Partner 02</b><span class="mono mono--nano">Arena naming</span></span>
+        <span class="sponsor"><b>Partner 03</b><span class="mono mono--nano">Jersey</span></span>
+        <span class="sponsor"><b>Partner 04</b><span class="mono mono--nano">Broadcast</span></span>
+        <span class="sponsor"><b>Partner 05</b><span class="mono mono--nano">Community</span></span>
+        <span class="sponsor"><b>Partner 06</b><span class="mono mono--nano">Official</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       NEWSLETTER
+       ==================================================================== -->
+  <section class="section defer" aria-labelledby="signup-h">
+    <div class="shell">
+      <div class="signup panel panel--pad bracket" data-reveal>
+        <div>
+          <span class="mono mono--red">Storm warning</span>
+          <h2 class="display display--3" id="signup-h" style="margin:.5rem 0 .75rem">Get the alert first</h2>
+          <p class="prose" style="color:var(--ash)">
+            Ticket presales, roster moves and the odd thing we cannot say out loud yet.
+            Two emails a week during the season. Leave whenever you want.
+          </p>
+        </div>
+        <form class="signup__form" action="#" method="post" novalidate>
+          <div class="field">
+            <label class="mono" for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+            <span class="mono field__hint">We never share your address.</span>
+          </div>
+          <button class="btn" type="submit" data-magnetic>Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>

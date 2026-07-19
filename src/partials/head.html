@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" class="no-js" data-basepath="{{base}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+
+<meta name="theme-color" content="#08090A">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://www.nhl.com/hurricanes/{{canonical}}">
+<link rel="alternate" hreflang="en" href="https://www.nhl.com/hurricanes/{{canonical}}">
+<link rel="alternate" hreflang="es" href="https://www.nhl.com/hurricanes/es/{{canonical}}">
+<link rel="alternate" hreflang="x-default" href="https://www.nhl.com/hurricanes/{{canonical}}">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Carolina Hurricanes">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:image" content="assets/img/banner-cup.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Canes">
+
+<!-- Icons generated from the official primary mark. See NOTICE.md. -->
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#CC0000">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Fonts: self hosted, same origin. See css/fonts.css. -->
+<link rel="preload" href="assets/fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/rink.css">
+<link rel="stylesheet" href="css/product.css">
+
+<script>
+/* Two lines, inline, before first paint: flag JS, and apply the stored data
+   saver choice so the page never flashes heavy imagery before the
+   preference module loads. */
+document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+try {
+  var p = JSON.parse(localStorage.getItem('canes:prefs') || '{}');
+  if (p.dataSaver) document.documentElement.classList.add('data-saver');
+  if (p.motion) document.documentElement.setAttribute('data-motion', p.motion);
+} catch (e) {}
+</script>
+{{jsonld}}
+</head>

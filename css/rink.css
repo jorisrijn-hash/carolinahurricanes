@@ -1,0 +1,351 @@
+/* ==========================================================================
+   RINK
+   The design language of the sport, used as layout, not as ornament.
+
+   Rules that keep it from becoming a theme park:
+   - Rink geometry only marks structure. A blue line divides sections because
+     a blue line divides zones. It never decorates an empty corner.
+   - The ice texture is a single 95 KB tile reused everywhere, never a second
+     image request.
+   - Nothing here animates on its own except where a user is already looking.
+   ========================================================================== */
+
+:root {
+  /* Regulation ice markings. Not brand colours: rink colours. */
+  --line-blue: #2F5D8C;
+  --line-red:  #A32029;
+  --board-white: #CED4D8;
+  --kickplate: #D6B020;   /* the single most recognisable line in the sport */
+  --ice-score: rgba(150, 186, 212, .5);
+}
+
+/* ==========================================================================
+   ICE SURFACE
+   A scored-ice field usable behind any dark panel.
+   ========================================================================== */
+.ice {
+  position: relative;
+  background-color: var(--void);
+  background-image: url("../assets/img/ice-tile.png");
+  background-size: 420px 420px;
+  background-repeat: repeat;
+}
+.ice--dim { background-blend-mode: soft-light; }
+/* Freshly resurfaced: a sheen that runs once when the section arrives. */
+.ice::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(104deg, transparent 38%, rgba(180,214,238,.05) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+}
+.ice.is-in::after {
+  transition: background-position 1600ms var(--ease-out);
+  background-position: -30% 0;
+}
+.data-saver .ice { background-image: none; }
+
+/* ==========================================================================
+   RINK LINES AS STRUCTURE
+   ========================================================================== */
+
+/* Section seam becomes a blue line: it separates zones of the page the way a
+   blue line separates zones of the ice. Replaces the plain hairline. */
+.section + .section::before {
+  background: linear-gradient(90deg,
+    var(--steel) 0%, var(--steel) 22%,
+    var(--line-blue) 22%, var(--line-blue) 24%,
+    var(--steel) 24%, var(--steel) 76%,
+    var(--line-blue) 76%, var(--line-blue) 78%,
+    var(--steel) 78%);
+}
+
+/* Centre-ice rule: one per page, under the page heading. */
+.centre-line {
+  position: relative;
+  height: 2px;
+  background: var(--line-red);
+  overflow: hidden;
+}
+.centre-line::after {
+  /* Dashed centre-line pattern, as painted on real ice. */
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg,
+    transparent 0 14px, var(--void) 14px 20px);
+}
+
+/* Faceoff circle used as a corner mark on hero and page heads. Drawn with
+   borders, so it costs nothing and scales cleanly. */
+.faceoff {
+  position: absolute; pointer-events: none;
+  width: clamp(180px, 26vw, 420px); aspect-ratio: 1;
+  border: 2px solid rgba(47, 93, 140, .38);
+  border-radius: 50%;
+}
+.faceoff::before {
+  content: ""; position: absolute; inset: 50% auto auto 50%;
+  width: 10px; height: 10px; margin: -5px 0 0 -5px;
+  background: var(--line-red); border-radius: 50%;
+}
+/* Hash marks: four short bars at the circle edge, as on a real faceoff dot. */
+.faceoff::after {
+  content: ""; position: absolute; inset: -1px;
+  border-radius: 50%;
+  border: 2px dashed rgba(47, 93, 140, .22);
+}
+
+/* ==========================================================================
+   DASHER BOARDS
+   White board with the yellow kickplate. Used as a footer cap and as the
+   base of the hero, so the page literally sits on the boards.
+   ========================================================================== */
+.boards {
+  height: 12px;
+  background:
+    linear-gradient(180deg, var(--board-white) 0 58%, var(--kickplate) 58% 100%);
+  position: relative; overflow: hidden;
+}
+.boards::after {
+  /* puck scuffs */
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 6px 3px at 12% 70%, rgba(20,20,22,.55), transparent),
+    radial-gradient(ellipse 9px 4px at 34% 40%, rgba(20,20,22,.4), transparent),
+    radial-gradient(ellipse 5px 3px at 51% 75%, rgba(20,20,22,.5), transparent),
+    radial-gradient(ellipse 11px 4px at 68% 45%, rgba(20,20,22,.35), transparent),
+    radial-gradient(ellipse 7px 3px at 86% 68%, rgba(20,20,22,.5), transparent);
+}
+
+/* Goal crease arc, used behind the scorebar. */
+.crease {
+  position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%);
+  width: min(560px, 70vw); aspect-ratio: 2 / 1;
+  border: 2px solid rgba(47, 93, 140, .5);
+  border-bottom: 0;
+  border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(47, 93, 140, .12));
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   MOTION THAT READS AS SKATING
+   Edge work: a hard push, then a long glide. That is what the easing below
+   describes, and why entrances decelerate far harder than they accelerate.
+   ========================================================================== */
+:root {
+  --ease-glide: cubic-bezier(.12, .82, .16, 1);  /* push, then carry */
+  --ease-carve: cubic-bezier(.7, 0, .16, 1);     /* hard direction change */
+}
+
+/* Slapshot underline: fires left to right at speed, then holds. */
+.shot-rule {
+  position: relative; height: 2px; background: var(--steel); overflow: hidden;
+}
+.shot-rule::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--red-hot);
+  transform: scaleX(0); transform-origin: left;
+}
+.shot-rule.is-in::after {
+  animation: slapshot 620ms var(--ease-carve) forwards;
+}
+@keyframes slapshot {
+  0%   { transform: scaleX(0); }
+  70%  { transform: scaleX(1.02); }
+  100% { transform: scaleX(1); }
+}
+
+/* Puck: a real disc, used as the countdown separator and the scroll cue. */
+.puck {
+  display: inline-block; width: 18px; height: 6px;
+  background: linear-gradient(180deg, #2A2E33, #0B0D0F);
+  border: 1px solid #000; border-radius: 3px / 2px;
+  box-shadow: 0 1px 0 rgba(233,231,228,.12) inset;
+}
+
+/* Ice spray: a short burst of shavings when a reveal lands. Pure CSS, no
+   canvas, one element, and it only ever plays once. */
+.spray { position: relative; }
+.spray::before {
+  content: "";
+  position: absolute; left: 0; bottom: -2px;
+  width: 100%; height: 14px; pointer-events: none;
+  background:
+    radial-gradient(circle 2px at 10% 60%, rgba(210,228,240,.9), transparent),
+    radial-gradient(circle 1px at 22% 30%, rgba(210,228,240,.8), transparent),
+    radial-gradient(circle 2px at 38% 70%, rgba(210,228,240,.7), transparent),
+    radial-gradient(circle 1px at 55% 40%, rgba(210,228,240,.85), transparent),
+    radial-gradient(circle 2px at 71% 65%, rgba(210,228,240,.6), transparent),
+    radial-gradient(circle 1px at 88% 35%, rgba(210,228,240,.8), transparent);
+  opacity: 0;
+}
+.spray.is-in::before { animation: spray 700ms var(--ease-out) forwards; }
+@keyframes spray {
+  0%   { opacity: 0; transform: translate3d(0,0,0) scaleY(.4); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(0,-16px,0) scaleY(1.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ice.is-in::after, .shot-rule.is-in::after, .spray.is-in::before { animation: none; transition: none; }
+  .shot-rule::after { transform: scaleX(1); }
+}
+[data-motion="reduced"] .shot-rule::after { transform: scaleX(1); animation: none; }
+.data-saver .spray::before, .data-saver .ice::after { display: none; }
+
+/* ==========================================================================
+   PLAYER CARD EMPTY STATE
+   No licensed portrait yet. This is a designed state, not a grey box, and
+   crucially not a stand-in photograph of somebody else.
+   ========================================================================== */
+.player--empty {
+  background-color: var(--iron);
+  background-image: url("../assets/img/ice-tile.png");
+  background-size: 300px 300px;
+}
+.player__empty {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 18%, rgba(204,0,0,.22), transparent 62%),
+    linear-gradient(180deg, transparent 40%, rgba(8,9,10,.9));
+}
+.player__initial {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(6rem, 13vw, 11rem); line-height: .8;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(233,231,228,.14);
+  transform: translateY(-8%);
+  transition: -webkit-text-stroke-color var(--t-mid);
+}
+.player--empty:hover .player__initial { -webkit-text-stroke-color: rgba(204,0,0,.75); }
+.data-saver .player--empty { background-image: none; }
+
+
+/* ==========================================================================
+   ZONE LINES
+   The fastest way to say ice hockey with no photograph: the markings. Two
+   blue lines and a red centre line, at the real 25 foot spacing, running
+   the full height of the hero behind the type.
+   ========================================================================== */
+.pagehead .zones, .scorebar .zones { display: block; }
+.zones { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.zones span {
+  position: absolute; top: -10%; bottom: -10%;
+  transform: rotate(4deg); transform-origin: top center;
+}
+.zones .blue { width: clamp(10px, 1.1vw, 20px); background: rgba(47, 93, 140, .34); }
+.zones .red  { width: clamp(5px, .5vw, 9px);   background: rgba(163, 32, 41, .40); }
+/* Goal line: thin, near the edge, as on the ice. */
+.zones .goal { width: 2px; background: rgba(163, 32, 41, .34); }
+.data-saver .zones { display: none; }
+
+/* The faceoff circle needs to be seen to do its job. */
+.faceoff { border-color: rgba(47, 93, 140, .55); }
+.faceoff::after { border-color: rgba(47, 93, 140, .3); }
+
+/* Rail markers read as ice scoring, not as empty checkboxes. */
+.rail__dot { width: 14px; height: 2px; border: 0; background: var(--gunmetal); }
+.rail__dot:hover, .rail__dot:focus-visible { background: var(--red-hot); transform: scaleX(1.5); }
+.rail__dot.is-current { background: var(--red-hot); width: 20px; }
+
+/* ==========================================================================
+   ZONE ENTRY TRANSITION
+   Leaving a page: a blue line sweeps across, the red centre line trails it,
+   and the fill carries the old page out. Arriving reverses it.
+   280ms out. Anything longer is a loading screen with better manners.
+   ========================================================================== */
+
+/* Native path. Chrome runs this off the main thread with no JS at all. */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: zoneOut 240ms cubic-bezier(.65, 0, .35, 1) forwards;
+  }
+  ::view-transition-new(root) {
+    animation: zoneIn 320ms cubic-bezier(.12, .82, .16, 1);
+  }
+}
+@keyframes zoneOut {
+  to { transform: translateX(-4%); opacity: 0; filter: brightness(.7); }
+}
+@keyframes zoneIn {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* JS fallback for browsers without cross document view transitions. */
+.zone-sweep {
+  position: fixed; inset: 0; z-index: 120;
+  pointer-events: none; overflow: hidden;
+  visibility: hidden;
+}
+.zone-sweep[data-state] { visibility: visible; }
+.zone-sweep span { position: absolute; top: -5%; bottom: -5%; will-change: transform; }
+.zone-sweep__blue { width: clamp(14px, 1.6vw, 28px); background: var(--line-blue); left: -8vw; }
+.zone-sweep__red  { width: clamp(6px, .6vw, 11px);  background: var(--line-red);  left: -14vw; }
+.zone-sweep__fill { left: -110vw; width: 110vw; background: var(--void); }
+
+.zone-sweep[data-state="out"] .zone-sweep__blue { animation: sweepAcross 280ms cubic-bezier(.65,0,.35,1) forwards; }
+.zone-sweep[data-state="out"] .zone-sweep__red  { animation: sweepAcross 280ms 40ms cubic-bezier(.65,0,.35,1) forwards; }
+.zone-sweep[data-state="out"] .zone-sweep__fill { animation: sweepFill 280ms cubic-bezier(.65,0,.35,1) forwards; }
+@keyframes sweepAcross { to { transform: translateX(125vw); } }
+@keyframes sweepFill   { to { transform: translateX(110vw); } }
+
+/* Arriving: the same lines clear the screen to the right. */
+.zone-sweep[data-state="in"] .zone-sweep__blue,
+.zone-sweep[data-state="in"] .zone-sweep__red {
+  animation: sweepClear 460ms cubic-bezier(.12,.82,.16,1) forwards;
+}
+@keyframes sweepClear {
+  from { transform: translateX(0); }
+  to   { transform: translateX(125vw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zone-sweep { display: none; }
+}
+[data-motion="reduced"] .zone-sweep { display: none; }
+
+/* ==========================================================================
+   CURSOR
+   A 6px dot with a ring that opens over anything interactive. Transform only,
+   one element, no layout ever.
+   ========================================================================== */
+.dot-cursor {
+  position: fixed; top: 0; left: 0; z-index: 130;
+  pointer-events: none; opacity: 0;
+  transition: opacity 180ms var(--ease-out);
+}
+html.has-dot .dot-cursor { opacity: 1; }
+html.has-dot, html.has-dot a, html.has-dot button, html.has-dot .chip { cursor: none; }
+html.has-dot input, html.has-dot textarea,
+html.has-dot select, html.has-dot [contenteditable] { cursor: auto; }
+.dot-cursor[data-mode="off"] { opacity: 0; }
+
+.dot-cursor__dot {
+  position: absolute; left: -3px; top: -3px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bone);
+  transition: transform 200ms var(--ease-snap), background 200ms;
+}
+.dot-cursor__ring {
+  position: absolute; left: -19px; top: -19px;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid rgba(233,231,228,.5);
+  transform: scale(.42); opacity: 0;
+  transition: transform 320ms var(--ease-out), opacity 220ms var(--ease-out), border-color 220ms;
+}
+
+.dot-cursor[data-mode="hot"] .dot-cursor__ring {
+  transform: scale(1); opacity: 1; border-color: var(--red-hot);
+}
+.dot-cursor[data-mode="hot"] .dot-cursor__dot { transform: scale(.45); background: var(--red-hot); }
+
+.dot-cursor[data-press] .dot-cursor__ring { transform: scale(.72); border-color: var(--red-hot); }
+.dot-cursor[data-press] .dot-cursor__dot { transform: scale(1.5); }
+
+@media (hover: none), (pointer: coarse) { .dot-cursor { display: none; } }

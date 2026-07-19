@@ -1,0 +1,108 @@
+<!--meta
+section: Schedule
+title: Schedule | Carolina Hurricanes
+description: The full Carolina Hurricanes 2026-27 schedule. Filter by home, away and month, with broadcast information and ticket links.
+nav: schedule
+scripts: js/schedule.js
+-->
+<main id="main">
+
+  <section class="pagehead" data-coord="2026-27 SCHEDULE">
+    <div class="shell">
+      <div class="head__meta" data-reveal>
+        <span class="mono mono--bone">2026&ndash;27 regular season</span>
+        <span class="mono">84 games &middot; 42 home</span>
+        <span class="mono push"><a href="#">Printable schedule</a></span>
+      </div>
+      <h1 class="display display--1 pagehead__title">Eighty-four<br>chances</h1>
+      <p class="lede">
+        The first 84-game campaign in league history. It opens at home on
+        29 September and does not let up until April.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--top">
+    <div class="shell">
+      <div class="filterbar" role="group" aria-label="Filter schedule">
+        <div class="chip-set" data-sched-filter>
+          <button class="chip" type="button" aria-pressed="true" data-venue="all">All games</button>
+          <button class="chip" type="button" aria-pressed="false" data-venue="home">Home</button>
+          <button class="chip" type="button" aria-pressed="false" data-venue="away">Away</button>
+        </div>
+        <p class="mono push" aria-live="polite" data-sched-count>8 games</p>
+      </div>
+
+      <div class="table-scroll" style="margin-top:1.5rem">
+        <table class="table schedule">
+          <caption class="visually-hidden">Upcoming games</caption>
+          <thead>
+            <tr>
+              <th scope="col">Date</th><th scope="col">Opponent</th><th scope="col">Venue</th>
+              <th scope="col">Time</th><th scope="col">Broadcast</th><th scope="col">Tickets</th>
+            </tr>
+          </thead>
+          <tbody data-sched-rows>
+            {{schedule_rows}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="stand-h" data-coord="STANDINGS">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Metropolitan Division</span>
+          <span class="mono mono--amber push">Sample data pending API</span>
+        </div>
+        <h2 class="display display--2 head__title" id="stand-h" data-reveal="wipe">Standings</h2>
+      </div>
+      <div class="table-scroll" data-reveal>
+        <table class="table">
+          <thead>
+            <tr><th scope="col">Team</th><th scope="col">GP</th><th scope="col">W</th>
+            <th scope="col">L</th><th scope="col">OT</th><th scope="col">PTS</th></tr>
+          </thead>
+          <tbody>
+            <tr class="is-us"><td class="is-key">Carolina</td><td>82</td><td>53</td><td>22</td><td>7</td><td>113</td></tr>
+            <tr><td class="is-key">Washington</td><td>82</td><td>43</td><td>30</td><td>9</td><td>95</td></tr>
+            <tr><td class="is-key">Philadelphia</td><td>82</td><td>43</td><td>27</td><td>12</td><td>98</td></tr>
+            <tr><td class="is-key">New Jersey</td><td>82</td><td>42</td><td>33</td><td>7</td><td>91</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="arena-h" data-coord="LENOVO CENTER">
+    <div class="shell">
+      <div class="grid grid--12">
+        <div class="span-5">
+          <div class="head">
+            <div class="head__meta"><span class="mono mono--bone">Arena</span></div>
+            <h2 class="display display--2 head__title" id="arena-h" data-reveal="wipe">Lenovo Center</h2>
+          </div>
+          <p class="prose" style="color:var(--ash)">
+            1400 Edwards Mill Road, Raleigh. Doors open 90 minutes before puck drop,
+            two hours for the home opener. Lots open three hours early.
+          </p>
+          <div class="row" style="margin-top:1.5rem">
+            <a class="btn btn--ghost" href="#" data-magnetic>Parking and transport</a>
+          </div>
+        </div>
+        <div class="span-7">
+          <div class="panel" data-reveal>
+            <div class="advisory__row"><span class="mono">Capacity</span><b class="num">18,700</b></div>
+            <div class="advisory__row"><span class="mono">Opened</span><b class="num">1999</b></div>
+            <div class="advisory__row"><span class="mono">Coordinates</span><b class="num">35.8033&deg;N 78.7217&deg;W</b></div>
+            <div class="advisory__row"><span class="mono">Bag policy</span><b>Clear bags only</b></div>
+            <div class="advisory__row"><span class="mono">Box office</span><b>Gate 1, from 10:00</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

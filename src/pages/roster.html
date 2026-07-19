@@ -1,0 +1,69 @@
+<!--meta
+section: Roster
+title: Roster | Carolina Hurricanes
+description: Every forward, defenceman and goaltender on the Carolina Hurricanes active roster, with season statistics.
+nav: roster
+scripts: js/roster.js
+-->
+<main id="main">
+
+  <section class="pagehead" data-coord="ACTIVE ROSTER">
+    <div class="shell">
+      <div class="head__meta" data-reveal>
+        <span class="mono mono--bone">Active roster</span>
+        <span class="mono">2026&ndash;27 &middot; {{roster_count}} under contract</span>
+        <span class="mono mono--amber push">Sample data pending API</span>
+      </div>
+      <h1 class="display display--1 pagehead__title">The room</h1>
+      <p class="lede">
+        {{count_f}} forwards, {{count_d}} defencemen, {{count_g}} goaltenders. The rest are
+        one injury away from the biggest night of their careers.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--top">
+    <div class="shell">
+      <!-- Filters are real buttons with aria-pressed, not a custom widget.
+           With JS off every player stays visible. -->
+      <div class="filterbar" role="group" aria-label="Filter roster by position">
+        <div class="chip-set" data-roster-filter>
+          <button class="chip" type="button" aria-pressed="true" data-pos="all">All <span class="num">({{roster_count}})</span></button>
+          <button class="chip" type="button" aria-pressed="false" data-pos="F">Forwards <span class="num">({{count_f}})</span></button>
+          <button class="chip" type="button" aria-pressed="false" data-pos="D">Defence <span class="num">({{count_d}})</span></button>
+          <button class="chip" type="button" aria-pressed="false" data-pos="G">Goaltenders <span class="num">({{count_g}})</span></button>
+        </div>
+        <p class="mono push" aria-live="polite" data-roster-count>{{roster_count}} players</p>
+      </div>
+
+      <div class="grid grid--4" style="margin-top:2rem" data-stagger data-roster-grid>
+
+        {{roster_cards}}
+      </div>
+
+      <p class="mono" data-roster-empty hidden style="margin-top:2rem">
+        No players match that filter.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="staff-h" data-coord="COACHING STAFF">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta"><span class="mono mono--bone">Behind the bench</span></div>
+        <h2 class="display display--2 head__title" id="staff-h" data-reveal="wipe">Coaching staff</h2>
+      </div>
+      <div class="table-scroll" data-reveal>
+        <table class="table">
+          <thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Since</th></tr></thead>
+          <tbody>
+            <tr><td class="is-key">Rod Brind'Amour</td><td>Head coach</td><td>2018</td></tr>
+            <tr><td class="is-key">Eric Tulsky</td><td>General manager</td><td>2024</td></tr>
+            <tr><td class="is-key">Darren Yorke</td><td>Assistant general manager</td><td>2024</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>

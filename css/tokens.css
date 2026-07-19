@@ -1,0 +1,97 @@
+/* ==========================================================================
+   TOKENS
+   The whole system is derived from two ideas:
+   1. The primary mark is a satellite view of a hurricane. So the interface
+      is an instrument that reads a storm: radar, advisories, coordinates.
+   2. Nothing is soft. Zero radius, hairline rules, hard edges, forged metal.
+   ========================================================================== */
+
+:root {
+  /* ---- Surface -------------------------------------------------------- */
+  --void:      #08090A;  /* page floor                                     */
+  --pitch:     #0C0E10;  /* raised surface                                 */
+  --iron:      #141719;  /* panel                                          */
+  --graphite:  #1C2024;  /* panel hover / inset                            */
+  --steel:     #2B3037;  /* hairline rule                                  */
+  --gunmetal:  #3A4149;  /* emphasised rule                                */
+
+  /* ---- Ink ------------------------------------------------------------ */
+  --bone:      #E9E7E4;  /* body text: warm off-white, never #FFF          */
+  --nickel:    #A2AAAD;  /* Hurricanes secondary silver                    */
+  --ash:       #8A9198;  /* muted text - AA verified on --void             */
+  --pure:      #FFFFFF;  /* reserved: display headlines only               */
+
+  /* ---- Brand ---------------------------------------------------------- */
+  --red:       #CC0000;  /* Carolina Hurricanes red                        */
+  --red-deep:  #8E0000;
+  --red-hot:   #FF2233;  /* live states + text-on-dark red, AA safe        */
+  --advisory:  #FFB000;  /* NWS warning amber. Rationed. Never decorative. */
+
+  /* Metal: three stops only. A four-stop chrome ramp reads as a gimmick. */
+  --metal: linear-gradient(100deg, #6E767E 0%, #C9CFD3 38%, #5A6169 62%, #9AA2A8 100%);
+  --metal-edge: linear-gradient(180deg, rgba(233,231,228,.34), rgba(233,231,228,0) 62%);
+
+  /* ---- Type ----------------------------------------------------------- */
+  /* Display: Big Shoulders - American industrial signage, condensed,
+     built for scale. Not Anton/Oswald/Bebas.
+     Body: Archivo - a technical grotesque with squared terminals.
+     Data: Martian Mono - instrument readout for coordinates, clocks, IDs. */
+  --font-display: "Big Shoulders Display", "Big Shoulders", "Archivo Narrow",
+                  "Arial Narrow", "Helvetica Neue Condensed", sans-serif;
+  --font-body:    "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-data:    "Martian Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+
+  --fs-hero:  clamp(3.25rem, 10.4vw, 10.5rem);
+  --fs-d1:    clamp(3rem, 8.2vw, 7.5rem);
+  --fs-d2:    clamp(2.25rem, 5vw, 4.25rem);
+  --fs-d3:    clamp(1.75rem, 3vw, 2.75rem);
+  --fs-h4:    clamp(1.125rem, 1.5vw, 1.5rem);
+  --fs-body:  clamp(0.9375rem, 0.42vw + 0.84rem, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.6875rem;   /* mono labels */
+  --fs-nano:  0.625rem;
+
+  --track-display: -0.018em;
+  --track-micro:    0.22em;
+  --lh-display: 0.82;
+  --lh-body: 1.62;
+
+  /* ---- Space ---------------------------------------------------------- */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --rail: 0px;                       /* instrument rail, widened at >=1180 */
+  --measure: 68ch;
+  --shell: 1680px;
+
+  --s-1: 0.25rem;  --s-2: 0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;   --s-6: 2rem;     --s-7: 3rem;     --s-8: 4rem;
+  --s-9: 6rem;     --s-10: 8rem;    --s-11: 11rem;
+
+  --section-y: clamp(3.25rem, 5.6vw, 6rem);
+
+  /* ---- Motion --------------------------------------------------------- */
+  /* Entrances decelerate hard, like weight settling. Exits are quick. */
+  --ease-out:  cubic-bezier(.16, 1, .3, 1);
+  --ease-io:   cubic-bezier(.65, 0, .35, 1);
+  --ease-snap: cubic-bezier(.2, .9, .1, 1);
+  --t-fast: 160ms;
+  --t-ui:   260ms;
+  --t-mid:  480ms;
+  --t-slow: 900ms;
+  --t-film: 1400ms;
+
+  /* ---- Depth ---------------------------------------------------------- */
+  --shadow-panel: 0 1px 0 rgba(233,231,228,.045), 0 24px 60px -24px rgba(0,0,0,.9);
+  --shadow-lift:  0 1px 0 rgba(233,231,228,.09), 0 40px 90px -30px rgba(0,0,0,1);
+  --glow-red: 0 0 0 1px rgba(204,0,0,.5), 0 0 42px -6px rgba(204,0,0,.5);
+
+  --z-rail: 40; --z-nav: 60; --z-drawer: 70; --z-cursor: 90; --z-boot: 100;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 1180px) { :root { --rail: 62px; } }
+
+/* Grain is a single tileable data-URI, reused everywhere. Cheap, no request. */
+:root {
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.42'/></svg>");
+}

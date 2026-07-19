@@ -1,0 +1,150 @@
+<!--meta
+title: My Canes | Carolina Hurricanes
+description: Your tickets, saved games and followed players. Works offline inside Lenovo Center.
+nav: my-canes
+section: My Canes
+-->
+<main id="main">
+
+  <section class="pagehead" data-coord="MY CANES">
+    <div class="shell">
+      <div class="head__meta" data-reveal>
+        <span class="mono mono--bone">Your account</span>
+        <span class="mono">Stored on this device only</span>
+        <span class="mono push" data-offline-state>Checking connection</span>
+      </div>
+      <h1 class="display display--1 pagehead__title">My Canes</h1>
+      <p class="lede">
+        Tickets, saved games and the players you follow. Everything on this page
+        is cached, so it opens inside the building when the wifi does not.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       WALLET
+       The one screen that must work with no signal. Cached by the service
+       worker on first visit, rendered from markup rather than fetched.
+       ==================================================================== -->
+  <section class="section section--top" aria-labelledby="wallet-h" data-coord="WALLET">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Ticket wallet</span>
+          <span class="mono">Available offline</span>
+          <span class="mono mono--amber push">Sample credential</span>
+        </div>
+        <h2 class="display display--2 head__title" id="wallet-h" data-reveal="wipe">Your ticket</h2>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="ticketstub" data-reveal>
+          <div class="ticketstub__top">
+            <span class="mono mono--red">Home opener &middot; banner raising</span>
+            <p class="ticketstub__match">Florida<br>at Carolina</p>
+            <p class="mono"><time datetime="2026-09-29T17:00:00-04:00">Tue 29 Sep 2026 &middot; 17:00 EDT</time></p>
+          </div>
+          <div class="ticketstub__grid">
+            <div><span class="mono">Section</span><b>112</b></div>
+            <div><span class="mono">Row</span><b>C</b></div>
+            <div><span class="mono">Seat</span><b>7</b></div>
+          </div>
+          <div class="ticketstub__code">
+            <!-- Rotating barcodes cannot be faked in a static build. This is a
+                 placeholder for the live credential from the ticketing
+                 provider, which must never be cached to disk. -->
+            <svg viewBox="0 0 200 80" role="img" aria-label="Placeholder for your rotating entry barcode">
+              <rect width="200" height="80" fill="#0C0E10"/>
+              <g fill="#E9E7E4">
+                <rect x="10" y="10" width="4" height="60"/><rect x="18" y="10" width="2" height="60"/>
+                <rect x="24" y="10" width="6" height="60"/><rect x="34" y="10" width="2" height="60"/>
+                <rect x="40" y="10" width="4" height="60"/><rect x="50" y="10" width="8" height="60"/>
+                <rect x="62" y="10" width="2" height="60"/><rect x="68" y="10" width="6" height="60"/>
+                <rect x="78" y="10" width="4" height="60"/><rect x="86" y="10" width="2" height="60"/>
+                <rect x="92" y="10" width="8" height="60"/><rect x="104" y="10" width="4" height="60"/>
+                <rect x="112" y="10" width="2" height="60"/><rect x="118" y="10" width="6" height="60"/>
+                <rect x="128" y="10" width="4" height="60"/><rect x="136" y="10" width="8" height="60"/>
+                <rect x="148" y="10" width="2" height="60"/><rect x="154" y="10" width="4" height="60"/>
+                <rect x="162" y="10" width="6" height="60"/><rect x="172" y="10" width="2" height="60"/>
+                <rect x="178" y="10" width="4" height="60"/><rect x="186" y="10" width="4" height="60"/>
+              </g>
+            </svg>
+            <p class="mono">Barcode refreshes every 15 seconds at the gate</p>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="panel panel--pad" data-reveal>
+            <span class="mono mono--red">Gate</span>
+            <p class="display display--3" style="margin:.35rem 0">Enter at gate 3</p>
+            <p class="prose" style="color:var(--ash)">
+              Closest to section 112 and the shortest security queue on a
+              weeknight. Doors open 15:00 for the opener.
+            </p>
+          </div>
+          <div class="panel panel--pad" data-reveal>
+            <span class="mono mono--red">Goal alerts</span>
+            <p class="prose" style="color:var(--ash);margin:.5rem 0 1rem">
+              One notification when the Canes score. Nothing else, ever.
+            </p>
+            <button class="btn btn--sm btn--steel" type="button" data-alerts aria-pressed="false">
+              <span data-alerts-state>Turn on goal alerts</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       ARENA STATUS
+       ==================================================================== -->
+  <section class="section" aria-labelledby="status-h" data-coord="ARENA STATUS">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Live arena status</span>
+          <span class="mono mono--amber push">Sample, wire to venue operations</span>
+        </div>
+        <h2 class="display display--2 head__title" id="status-h" data-reveal="wipe">Before you leave home</h2>
+      </div>
+      <div class="statusgrid" data-reveal>
+        <div class="statuscell" data-state="good">
+          <span class="mono">Parking, deck 2</span>
+          <b>Open</b>
+          <span class="mono">About 340 spaces left</span>
+        </div>
+        <div class="statuscell" data-state="busy">
+          <span class="mono">Security, gate 1</span>
+          <b>12 min</b>
+          <span class="mono">Gate 3 is clear</span>
+        </div>
+        <div class="statuscell" data-state="good">
+          <span class="mono">Concessions pre-order</span>
+          <b>Open</b>
+          <span class="mono">Collect at section 118 until second intermission</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       FOLLOWED PLAYERS + SAVED GAMES
+       ==================================================================== -->
+  <section class="section" aria-labelledby="follows-h" data-coord="FOLLOWING">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta"><span class="mono mono--bone">Following</span></div>
+        <h2 class="display display--2 head__title" id="follows-h" data-reveal="wipe">Your players</h2>
+      </div>
+      <div data-follow-list>
+        <p class="prose" style="color:var(--ash)">
+          You are not following anyone yet. Tap the star on any player card to
+          see their line first on gameday.
+        </p>
+        <a class="btn btn--ghost" href="roster.html" style="margin-top:1.25rem" data-magnetic>Browse the roster</a>
+      </div>
+    </div>
+  </section>
+
+</main>

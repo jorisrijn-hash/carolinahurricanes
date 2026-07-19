@@ -1,0 +1,61 @@
+{
+  "id": "2026020001",
+  "state": "live",
+  "period": 3,
+  "clock": "08:42",
+  "home": { "abbrev": "CAR", "score": 3, "sog": 34, "record": "1-0-0" },
+  "away": { "abbrev": "FLA", "score": 2, "sog": 27, "record": "0-1-0" },
+  "powerPlay": { "team": "CAR", "remaining": 72, "total": 120 },
+  "_sample": ["all values below"],
+  "_note": "Shot x,y are feet from the top left of a 200x85 rink. xg is expected goals 0-1.",
+  "shots": [
+    {"x":163,"y":44,"xg":0.08,"t":"CAR","r":"Aho, wrist shot, saved"},
+    {"x":171,"y":38,"xg":0.19,"t":"CAR","r":"Jarvis, tip in, saved"},
+    {"x":158,"y":52,"xg":0.05,"t":"CAR","r":"Svechnikov, snap shot, missed"},
+    {"x":176,"y":46,"xg":0.22,"t":"CAR","r":"Stankoven, backhand, saved"},
+    {"x":149,"y":34,"xg":0.03,"t":"CAR","r":"Slavin, point shot, blocked"},
+    {"x":144,"y":55,"xg":0.02,"t":"CAR","r":"Walker, point shot, saved"},
+    {"x":167,"y":29,"xg":0.06,"t":"CAR","r":"Ehlers, wrist shot, saved"},
+    {"x":155,"y":42,"xg":0.11,"t":"CAR","r":"Staal, deflection, saved"},
+    {"x":180,"y":52,"xg":0.07,"t":"CAR","r":"Jarvis, wraparound, saved"},
+    {"x":147,"y":45,"xg":0.04,"t":"CAR","r":"Aho, slap shot, missed"},
+    {"x":172,"y":57,"xg":0.14,"t":"CAR","r":"Jankowski, rebound, saved"},
+    {"x":139,"y":42,"xg":0.03,"t":"CAR","r":"Slavin, point shot, saved"},
+    {"x":37,"y":41,"xg":0.09,"t":"FLA","r":"Florida, wrist shot, saved"},
+    {"x":29,"y":55,"xg":0.12,"t":"FLA","r":"Florida, snap shot, saved"},
+    {"x":52,"y":33,"xg":0.03,"t":"FLA","r":"Florida, point shot, blocked"},
+    {"x":45,"y":60,"xg":0.05,"t":"FLA","r":"Florida, wrist shot, missed"},
+    {"x":24,"y":36,"xg":0.16,"t":"FLA","r":"Florida, backhand, saved"},
+    {"x":58,"y":48,"xg":0.02,"t":"FLA","r":"Florida, slap shot, saved"},
+    {"x":41,"y":26,"xg":0.07,"t":"FLA","r":"Florida, tip in, saved"},
+    {"x":33,"y":49,"xg":0.10,"t":"FLA","r":"Florida, rebound, saved"}
+  ],
+  "goals": [
+    {"x":174,"y":42,"t":"CAR","r":"Aho, 12:20 first period, power play goal"},
+    {"x":165,"y":49,"t":"CAR","r":"Jarvis, 04:55 second period, even strength"},
+    {"x":159,"y":37,"t":"CAR","r":"Svechnikov, 11:08 third period, even strength"},
+    {"x":27,"y":44,"t":"FLA","r":"Florida, 07:31 second period, even strength"},
+    {"x":35,"y":38,"t":"FLA","r":"Florida, 02:14 third period, power play goal"}
+  ],
+  "winProbability": [
+    {"m":0,"p":54},{"m":5,"p":58},{"m":10,"p":63},{"m":13,"p":72},{"m":20,"p":70},
+    {"m":25,"p":78},{"m":28,"p":71},{"m":32,"p":66},{"m":40,"p":68},{"m":43,"p":49},
+    {"m":48,"p":52},{"m":52,"p":74},{"m":56,"p":86},{"m":60,"p":91}
+  ],
+  "edge": {
+    "_licence": "NHL Edge puck and player tracking. Confirm data rights before shipping.",
+    "topSpeed": { "player": "Nikolaj Ehlers", "value": 38.1, "unit": "km/h" },
+    "hardestShot": { "player": "Andrei Svechnikov", "value": 98.3, "unit": "km/h" },
+    "zoneTime": { "home": 61, "away": 39, "unit": "% offensive zone" },
+    "distanceSkated": { "player": "Jaccob Slavin", "value": 5.42, "unit": "km" }
+  },
+  "plays": [
+    {"period":1,"time":"12:20","type":"goal","team":"CAR","title":"Sebastian Aho","detail":"Power play goal. Assists: Jarvis, Slavin.","score":"1-0","clip":true},
+    {"period":1,"time":"18:04","type":"penalty","team":"FLA","title":"Hooking","detail":"2 minutes.","score":"1-0","clip":false},
+    {"period":2,"time":"04:55","type":"goal","team":"CAR","title":"Seth Jarvis","detail":"Even strength. Assists: Aho.","score":"2-0","clip":true},
+    {"period":2,"time":"07:31","type":"goal","team":"FLA","title":"Florida","detail":"Even strength.","score":"2-1","clip":true},
+    {"period":2,"time":"15:02","type":"penalty","team":"CAR","title":"Tripping","detail":"2 minutes, served by Jankowski.","score":"2-1","clip":false},
+    {"period":3,"time":"02:14","type":"goal","team":"FLA","title":"Florida","detail":"Power play goal.","score":"2-2","clip":true},
+    {"period":3,"time":"11:08","type":"goal","team":"CAR","title":"Andrei Svechnikov","detail":"Even strength. Assists: Staal, Walker.","score":"3-2","clip":true}
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "_warning": "Every entry below needs its licence confirmed before publication.",
+  "photography": [
+    {
+      "asset": "photo/hero-celebration",
+      "source_file": "6a2c06f5063c41.36488197.webp",
+      "credit": "Carolina Hurricanes celebration, supplied",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/celebration-team",
+      "source_file": "USATSI_25913189.webp",
+      "credit": "USA TODAY Sports Images (USATSI_25913189)",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/player-action",
+      "source_file": "imagn-27161333.webp",
+      "credit": "Imagn Images (imagn-27161333)",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/net-scramble",
+      "source_file": "images (2).jpeg",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/arena-bowl",
+      "source_file": "images (3).jpeg",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/celebration-glass",
+      "source_file": "images (1).jpeg",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/portrait-smile",
+      "source_file": "images.jpeg",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/boards-celebration",
+      "source_file": "Hurricanes-768x432.jpg",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    },
+    {
+      "asset": "photo/dejection",
+      "source_file": "66984acd57b094.00492242.webp",
+      "credit": "Supplied, provenance unknown",
+      "licence": "UNVERIFIED - confirm before publication"
+    }
+  ],
+  "headshots": {
+    "source": "Official NHL player headshots supplied by the client",
+    "licence": "UNVERIFIED - NHL/NHLI rights required"
+  }
+}

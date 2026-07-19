@@ -1,0 +1,57 @@
+/* ==========================================================================
+   FONTS - self hosted
+   Served from the same origin: no third party connection, no render block
+   on a CDN that can be slow, blocked, or unavailable behind a firewall.
+   Latin subset only, and only the weights the design actually uses.
+   Total: 9 files, ~140 KB.
+   font-display: swap keeps first paint on the fallback stack, which is
+   why the fallbacks in tokens.css are chosen for similar width.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("../assets/fonts/big-shoulders-display-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("../assets/fonts/big-shoulders-display-latin-800-normal.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("../assets/fonts/big-shoulders-display-latin-900-normal.woff2") format("woff2");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin-500-normal.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+@font-face {
+  font-family: "Martian Mono";
+  src: url("../assets/fonts/martian-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Martian Mono";
+  src: url("../assets/fonts/martian-mono-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}

@@ -1,0 +1,51 @@
+<!--meta
+title: Entradas | Carolina Hurricanes
+description: Compra entradas para los Carolina Hurricanes por rival y fecha. Precios con todas las tarifas incluidas, vistas desde el asiento y abonos de temporada en el Lenovo Center.
+lang: es
+section: Entradas
+scripts: js/tickets.js
+-->
+<main id="main">
+
+  <section class="pagehead" data-coord="ENTRADAS">
+    <div class="shell">
+      <div class="head__meta" data-reveal>
+        <span class="badge badge--advisory">Noche inaugural, 29 de septiembre</span>
+        <span class="mono">{{home_count}} partidos en casa</span>
+        <span class="mono push">Lenovo Center &middot; Raleigh</span>
+      </div>
+      <h1 class="display display--1 pagehead__title">Estar en<br>el edificio</h1>
+      <p class="lede">
+        Elige primero la noche. Los precios incluyen todas las tarifas, asi que
+        el numero que ves es el que pagas.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--top" aria-labelledby="games-h" data-coord="ELIGE PARTIDO">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Calendario en casa</span>
+          <span class="mono mono--amber push">Precios orientativos</span>
+        </div>
+        <h2 class="display display--2 head__title" id="games-h" data-reveal="wipe">Elige tu noche</h2>
+      </div>
+
+      <div class="pricebar">
+        <label class="setting__label" for="allin" style="flex:0 0 auto;font-size:1rem">Precio final</label>
+        <input class="switch" id="allin" type="checkbox" role="switch" checked data-allin>
+        <p class="pricebar__note" data-allin-note>Mostrando el precio final con tarifas e impuestos.</p>
+      </div>
+
+      <div class="grid grid--4" data-stagger data-game-grid>
+        {{ticket_games}}
+      </div>
+
+      <p class="mono" style="margin-top:2rem">
+        <a class="link" href="tickets.html" hreflang="en" lang="en">Read in English</a>
+      </p>
+    </div>
+  </section>
+
+</main>

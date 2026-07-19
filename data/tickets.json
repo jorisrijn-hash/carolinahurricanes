@@ -1,0 +1,21 @@
+{
+  "_sample": ["every price and fee below"],
+  "currency": "USD",
+  "feeRate": 0.184,
+  "feeFlat": 4.95,
+  "tiers": [
+    { "key":"glass","label":"Glass","from":340,"rows":"Rows 1 to 3",
+      "note":"Against the boards. You will hear the hits land.","view":"seat-glass" },
+    { "key":"lower","label":"Lower bowl","from":165,"rows":"Sections 101 to 124",
+      "note":"Full sightline of both blue lines. The best value in the building.","view":"seat-lower" },
+    { "key":"club","label":"Club","from":240,"rows":"Sections C1 to C12",
+      "note":"Wider seats, private concourse, in-seat service.","view":"seat-club" },
+    { "key":"upper","label":"Upper bowl","from":59,"rows":"Sections 301 to 334",
+      "note":"Loudest seats in Raleigh. Bring your voice, you will need it in April.","view":"seat-upper" }
+  ],
+  "plans": [
+    { "key":"full","label":"Full season","games":42,"perGame":71 },
+    { "key":"half","label":"Half season","games":21,"perGame":84 },
+    { "key":"quarter","label":"Quarter plan","games":11,"perGame":97 }
+  ]
+}

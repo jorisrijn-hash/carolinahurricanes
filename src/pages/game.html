@@ -1,0 +1,361 @@
+<!--meta
+title: Game center | Carolina Hurricanes
+description: Live score, win probability, expected goals shot map, NHL Edge tracking and full play by play for Carolina Hurricanes games at Lenovo Center.
+nav: game
+section: Game center
+scripts: js/game.js
+-->
+<main id="main">
+
+  <!-- ====================================================================
+       SCOREBAR
+       The only genuinely live region on the site. Score changes are
+       announced politely, once, with the full context a screen reader
+       needs; the per-second clock is never announced.
+       ==================================================================== -->
+  <section class="scorebar" data-coord="GAME 1 / FLA AT CAR" aria-labelledby="score-h">
+    <div class="shell">
+      <h1 class="visually-hidden" id="score-h">Florida at Carolina, live game center</h1>
+
+      <div class="scorebar__strip">
+        <span class="badge badge--live">Live</span>
+        <span class="mono">Regular season game 1</span>
+        <span class="mono">Lenovo Center &middot; Raleigh</span>
+        <button class="btn btn--sm btn--steel push" type="button" data-save-game="2026020001" aria-pressed="false">
+          <span data-save-label>Save to my games</span>
+        </button>
+      </div>
+
+      <div class="scorebar__grid">
+        <div class="scoreteam">
+          <span class="mono">Florida</span>
+          <span class="scoreteam__abbr">FLA</span>
+          <span class="mono">Away &middot; 0&ndash;1&ndash;0</span>
+        </div>
+
+        <div class="scoreteam__score num" aria-hidden="true">2</div>
+
+        <div class="scoreclock">
+          <span class="scoreclock__period">3rd</span>
+          <span class="scoreclock__time num" data-game-clock>08:42</span>
+          <span class="mono">Period clock</span>
+        </div>
+
+        <div class="scoreteam__score num is-home" aria-hidden="true">3</div>
+
+        <div class="scoreteam is-home">
+          <span class="mono">Carolina</span>
+          <span class="scoreteam__abbr">CAR</span>
+          <span class="mono">Home &middot; 1&ndash;0&ndash;0</span>
+        </div>
+      </div>
+
+      <p class="visually-hidden" aria-live="polite" data-score-live>
+        Carolina 3, Florida 2. Third period, 8 minutes 42 seconds remaining.
+      </p>
+
+      <!-- Special teams state. Reads as an instrument, not an icon. -->
+      <div class="powerplay" data-powerplay>
+        <span class="mono mono--red">Power play</span>
+        <span class="powerplay__team">Carolina</span>
+        <div class="powerplay__bar" role="img" aria-label="Power play, 1 minute 12 seconds remaining of 2 minutes">
+          <span style="--pp:60%"></span>
+        </div>
+        <span class="mono num">1:12 remaining</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       RINK + SHOT MAP
+       Drawn to NHL specification: 200 by 85 feet, blue lines 25 feet from
+       centre, goal lines 11 feet from the boards, 15 foot faceoff circles.
+       Every shot is a real coordinate in feet, so the map is measurable
+       rather than decorative.
+       ==================================================================== -->
+  <section class="section" aria-labelledby="rink-h" data-coord="SHOT MAP">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta" data-reveal>
+          <span class="mono mono--bone">Shot map</span>
+          <span class="mono">200 &times; 85 ft &middot; even strength and power play</span>
+          <span class="mono push">Attempts 61</span>
+        </div>
+        <h2 class="display display--2 head__title" id="rink-h" data-reveal="wipe">Where it happened</h2>
+      </div>
+
+      <div class="rinkwrap panel" data-reveal>
+        <div class="rink-legend">
+          <span class="mono"><i class="dot dot--car"></i> Carolina shot</span>
+          <span class="mono"><i class="dot dot--fla"></i> Florida shot</span>
+          <span class="mono"><i class="dot dot--goal"></i> Goal</span>
+          <span class="mono">Marker size is expected goals</span>
+          <span class="mono push">Hover a mark for detail</span>
+        </div>
+
+        <svg class="rink" viewBox="0 0 200 85" role="img"
+             aria-labelledby="rink-title rink-desc" preserveAspectRatio="xMidYMid meet">
+          <title id="rink-title">Shot map</title>
+          <desc id="rink-desc">
+            Carolina attempted 34 shots, concentrated in the slot in front of the
+            Florida net. Florida attempted 27, mostly from the perimeter.
+          </desc>
+
+          <!-- ice -->
+          <rect x="0" y="0" width="200" height="85" rx="28" ry="28" class="rink__ice"/>
+
+          <!-- goal lines -->
+          <line x1="11" y1="4.2" x2="11" y2="80.8" class="rink__goal-line"/>
+          <line x1="189" y1="4.2" x2="189" y2="80.8" class="rink__goal-line"/>
+
+          <!-- blue lines -->
+          <line x1="75" y1="0" x2="75" y2="85" class="rink__blue"/>
+          <line x1="125" y1="0" x2="125" y2="85" class="rink__blue"/>
+
+          <!-- centre -->
+          <line x1="100" y1="0" x2="100" y2="85" class="rink__red"/>
+          <circle cx="100" cy="42.5" r="15" class="rink__circle"/>
+          <circle cx="100" cy="42.5" r="1" class="rink__dot-red"/>
+
+          <!-- end zone faceoff circles -->
+          <circle cx="31" cy="20.5" r="15" class="rink__circle"/>
+          <circle cx="31" cy="64.5" r="15" class="rink__circle"/>
+          <circle cx="169" cy="20.5" r="15" class="rink__circle"/>
+          <circle cx="169" cy="64.5" r="15" class="rink__circle"/>
+          <circle cx="31" cy="20.5" r="1" class="rink__dot-red"/>
+          <circle cx="31" cy="64.5" r="1" class="rink__dot-red"/>
+          <circle cx="169" cy="20.5" r="1" class="rink__dot-red"/>
+          <circle cx="169" cy="64.5" r="1" class="rink__dot-red"/>
+
+          <!-- neutral zone dots -->
+          <circle cx="80" cy="20.5" r="1" class="rink__dot-red"/>
+          <circle cx="80" cy="64.5" r="1" class="rink__dot-red"/>
+          <circle cx="120" cy="20.5" r="1" class="rink__dot-red"/>
+          <circle cx="120" cy="64.5" r="1" class="rink__dot-red"/>
+
+          <!-- creases and nets -->
+          <path d="M11 36.5 a8 8 0 0 1 0 12 L11 36.5 Z" class="rink__crease"/>
+          <path d="M11 36.5 h4 a8 8 0 0 1 0 12 h-4 Z" class="rink__crease"/>
+          <path d="M189 36.5 h-4 a8 8 0 0 0 0 12 h4 Z" class="rink__crease"/>
+          <rect x="7" y="39.5" width="4" height="6" class="rink__net"/>
+          <rect x="189" y="39.5" width="4" height="6" class="rink__net"/>
+
+          <!-- trapezoids -->
+          <path d="M11 31 L6 27 M11 54 L6 58" class="rink__trap"/>
+          <path d="M189 31 L194 27 M189 54 L194 58" class="rink__trap"/>
+
+          <!-- ============ shots ============
+               cx/cy are feet from the top left corner of the rink.
+               Carolina attacks the right hand net. -->
+          <g class="shots" data-shots>
+            {{shot_map}}
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       MOMENTUM + TEAM STATS
+       ==================================================================== -->
+  <section class="section" aria-labelledby="mom-h" data-coord="MOMENTUM">
+    <div class="shell">
+      <div class="grid grid--12">
+        <div class="span-7">
+          <div class="head">
+            <div class="head__meta">
+              <span class="mono mono--bone">Win probability</span>
+              <span class="mono">Live model, updates each stoppage</span>
+            </div>
+            <h2 class="display display--3 head__title" id="mom-h" data-reveal="wipe">The swing</h2>
+          </div>
+
+          <div class="panel panel--pad" data-reveal>
+            <!-- One line, one axis, the 50 per cent mark called out. The
+                 previous shot attempt differential chart needed a paragraph
+                 to explain; this one does not. -->
+            <svg class="wp__chart" viewBox="0 0 600 200" role="img"
+                 aria-labelledby="wp-title wp-desc" preserveAspectRatio="none">
+              <title id="wp-title">Carolina win probability through the game</title>
+              <desc id="wp-desc">
+                Carolina opened around 54 per cent, climbed to 78 in the first
+                period, fell to 49 after Florida equalised early in the third,
+                and finished at 91 per cent after the go ahead goal.
+              </desc>
+              <line x1="0" y1="100" x2="600" y2="100" class="wp__mid"/>
+              <line x1="200" y1="0" x2="200" y2="200" class="wp__period"/>
+              <line x1="400" y1="0" x2="400" y2="200" class="wp__period"/>
+              {{win_probability}}
+            </svg>
+            <div class="wp__axis">
+              <span class="mono">1st</span><span class="mono">2nd</span><span class="mono">3rd</span>
+              <span class="mono push mono--bone">CAR 91%</span>
+            </div>
+          </div>
+
+          <div class="head" style="margin-top:2.5rem">
+            <div class="head__meta">
+              <span class="mono mono--bone">NHL Edge tracking</span>
+              <span class="mono mono--amber push">Confirm data rights</span>
+            </div>
+            <h2 class="display display--3 head__title" data-reveal="wipe">Puck and player</h2>
+          </div>
+          <div class="edge" data-reveal>
+            {{edge_panel}}
+          </div>
+        </div>
+
+        <div class="span-5">
+          <div class="head">
+            <div class="head__meta"><span class="mono mono--bone">Team stats</span></div>
+            <h2 class="display display--3 head__title" data-reveal="wipe">Head to head</h2>
+          </div>
+
+          <div class="panel panel--pad" data-reveal>
+            <div class="vs">
+              <div class="vs__row">
+                <span class="vs__num num">34</span>
+                <span class="mono">Shots</span>
+                <span class="vs__num num is-away">27</span>
+                <span class="vs__track"><i style="--home:56%"></i></span>
+              </div>
+              <div class="vs__row">
+                <span class="vs__num num">58.1</span>
+                <span class="mono">Faceoff %</span>
+                <span class="vs__num num is-away">41.9</span>
+                <span class="vs__track"><i style="--home:58%"></i></span>
+              </div>
+              <div class="vs__row">
+                <span class="vs__num num">22</span>
+                <span class="mono">Hits</span>
+                <span class="vs__num num is-away">19</span>
+                <span class="vs__track"><i style="--home:54%"></i></span>
+              </div>
+              <div class="vs__row">
+                <span class="vs__num num">14</span>
+                <span class="mono">Blocked shots</span>
+                <span class="vs__num num is-away">11</span>
+                <span class="vs__track"><i style="--home:56%"></i></span>
+              </div>
+              <div class="vs__row">
+                <span class="vs__num num">1/3</span>
+                <span class="mono">Power play</span>
+                <span class="vs__num num is-away">1/4</span>
+                <span class="vs__track"><i style="--home:57%"></i></span>
+              </div>
+              <div class="vs__row">
+                <span class="vs__num num">8:12</span>
+                <span class="mono">Time on attack</span>
+                <span class="vs__num num is-away">6:44</span>
+                <span class="vs__track"><i style="--home:55%"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       TIMELINE
+       ==================================================================== -->
+  <section class="section" aria-labelledby="tl-h" data-coord="TIMELINE">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Timeline</span>
+          <span class="mono">Scoring, penalties and clips</span>
+        </div>
+        <h2 class="display display--2 head__title" id="tl-h" data-reveal="wipe">Play by play</h2>
+      </div>
+
+      <ol class="timeline" data-stagger>
+        {{plays}}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       BOX SCORE
+       ==================================================================== -->
+  <section class="section" aria-labelledby="box-h" data-coord="BOX SCORE">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta">
+          <span class="mono mono--bone">Box score</span>
+          <span class="mono mono--amber push">Sample data pending API</span>
+        </div>
+        <h2 class="display display--2 head__title" id="box-h" data-reveal="wipe">Every shift counted</h2>
+      </div>
+
+      <div class="table-scroll" data-reveal>
+        <table class="table">
+          <caption class="mono">Carolina skaters</caption>
+          <thead>
+            <tr>
+              <th scope="col">Player</th><th scope="col">Pos</th><th scope="col">G</th>
+              <th scope="col">A</th><th scope="col">P</th><th scope="col">+/-</th>
+              <th scope="col">SOG</th><th scope="col">Hits</th><th scope="col">TOI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="is-key">Sebastian Aho</td><td>C</td><td>1</td><td>1</td><td>2</td><td>+2</td><td>5</td><td>2</td><td>21:14</td></tr>
+            <tr><td class="is-key">Seth Jarvis</td><td>RW</td><td>1</td><td>1</td><td>2</td><td>+2</td><td>4</td><td>3</td><td>19:48</td></tr>
+            <tr><td class="is-key">Andrei Svechnikov</td><td>LW</td><td>1</td><td>0</td><td>1</td><td>+1</td><td>6</td><td>4</td><td>18:32</td></tr>
+            <tr><td class="is-key">Jordan Staal</td><td>C</td><td>0</td><td>1</td><td>1</td><td>+1</td><td>2</td><td>5</td><td>17:05</td></tr>
+            <tr><td class="is-key">Jaccob Slavin</td><td>D</td><td>0</td><td>1</td><td>1</td><td>+2</td><td>3</td><td>2</td><td>24:41</td></tr>
+            <tr><td class="is-key">Sean Walker</td><td>D</td><td>0</td><td>1</td><td>1</td><td>+1</td><td>2</td><td>3</td><td>20:19</td></tr>
+            <tr><td class="is-key">Logan Stankoven</td><td>C</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>1</td><td>15:52</td></tr>
+            <tr><td class="is-key">Mark Jankowski</td><td>C</td><td>0</td><td>0</td><td>0</td><td>&minus;1</td><td>1</td><td>2</td><td>11:26</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-scroll" style="margin-top:2.5rem" data-reveal>
+        <table class="table">
+          <caption class="mono">Goaltending</caption>
+          <thead>
+            <tr>
+              <th scope="col">Goaltender</th><th scope="col">Team</th><th scope="col">SA</th>
+              <th scope="col">SV</th><th scope="col">GA</th><th scope="col">SV%</th><th scope="col">TOI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="is-key">Brandon Bussi</td><td>CAR</td><td>27</td><td>25</td><td>2</td><td>.926</td><td>60:00</td></tr>
+            <tr><td class="is-key">Florida starter</td><td>FLA</td><td>34</td><td>31</td><td>3</td><td>.912</td><td>59:04</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       THREE STARS
+       ==================================================================== -->
+  <section class="section" aria-labelledby="stars-h" data-coord="THREE STARS">
+    <div class="shell">
+      <div class="head">
+        <div class="head__meta"><span class="mono mono--bone">Three stars</span></div>
+        <h2 class="display display--2 head__title" id="stars-h" data-reveal="wipe">Named tonight</h2>
+      </div>
+      <ol class="grid grid--3" data-stagger>
+        <li class="panel panel--pad star" data-reveal>
+          <span class="star__rank num">1</span>
+          <b class="star__name">Sebastian Aho</b>
+          <span class="mono">1 goal, 1 assist, 5 shots</span>
+        </li>
+        <li class="panel panel--pad star" data-reveal>
+          <span class="star__rank num">2</span>
+          <b class="star__name">Brandon Bussi</b>
+          <span class="mono">25 saves on 27 shots</span>
+        </li>
+        <li class="panel panel--pad star" data-reveal>
+          <span class="star__rank num">3</span>
+          <b class="star__name">Andrei Svechnikov</b>
+          <span class="mono">Game winner, 6 shots</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+</main>

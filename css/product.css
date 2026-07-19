@@ -1,0 +1,354 @@
+/* ==========================================================================
+   PRODUCT
+   The surfaces added when this stopped being a homepage concept and started
+   being a product: live state, search, settings, ticketing, gameday.
+   ========================================================================== */
+
+/* ==========================================================================
+   DATA SAVER
+   One class on <html> with real consequences. Decorative layers stop, photo
+   plates collapse to a flat tone, transitions shorten. Nothing that carries
+   meaning is hidden: shot maps, charts and crests all stay.
+   ========================================================================== */
+.data-saver .hero__rig,
+.data-saver .hero__atmos,
+.data-saver .hero__veil,
+.data-saver .marquee { display: none; }
+.data-saver .hero__plate img,
+.data-saver .tile img,
+.data-saver .card__media img,
+.data-saver .feature__media img,
+.data-saver .artlead__media img { visibility: hidden; }
+.data-saver .plate { background: linear-gradient(135deg, var(--iron), var(--graphite)); }
+.data-saver *, .data-saver *::before, .data-saver *::after {
+  animation-duration: .001ms !important;
+  transition-duration: 120ms !important;
+}
+
+/* Explicit reduced motion from settings, independent of the OS. */
+[data-motion="reduced"] *,
+[data-motion="reduced"] *::before,
+[data-motion="reduced"] *::after {
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+}
+[data-motion="reduced"] [data-reveal] { opacity: 1 !important; transform: none !important; }
+[data-motion="reduced"] [data-reveal="wipe"] > .wipe-inner { transform: none !important; }
+
+/* ==========================================================================
+   LIVE BAR
+   ========================================================================== */
+.livebar {
+  position: fixed; inset: auto 0 0 0; z-index: 65;
+  display: flex; align-items: center;
+  background: var(--red-deep);
+  border-top: 1px solid var(--red-hot);
+  box-shadow: 0 -12px 40px -12px rgba(0,0,0,.9);
+  animation: livebarIn 420ms var(--ease-out);
+}
+@keyframes livebarIn { from { transform: translateY(100%); } to { transform: none; } }
+@media (min-width: 1180px) { .livebar { left: var(--rail); } }
+
+.livebar__link {
+  flex: 1; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem;
+  padding: .7rem var(--gutter);
+  color: var(--bone);
+}
+.livebar__link:hover { background: rgba(0,0,0,.2); }
+.livebar__score {
+  display: flex; align-items: baseline; gap: .5rem;
+  font-family: var(--font-display); font-weight: 900; font-size: 1.35rem;
+  color: var(--pure); letter-spacing: .02em;
+}
+.livebar__score i { opacity: .5; font-style: normal; }
+.livebar__cta { margin-left: auto; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 620px) { .livebar__cta { display: none; } }
+.livebar__close {
+  display: grid; place-items: center; width: 44px; align-self: stretch;
+  color: var(--bone); border-left: 1px solid rgba(255,255,255,.18);
+}
+.livebar__close:hover { background: rgba(0,0,0,.25); }
+/* Keep the bar from covering the last line of the page. */
+.has-livebar .footer__legal { padding-bottom: 4.5rem; }
+
+/* ==========================================================================
+   RAIL NAVIGATION
+   ========================================================================== */
+.rail__dots { display: grid; gap: .75rem; justify-items: center; margin: 1rem 0; }
+.rail__dot {
+  position: relative; display: block;
+  width: 7px; height: 7px;
+  border: 1px solid var(--gunmetal);
+  transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.rail__dot:hover, .rail__dot:focus-visible { border-color: var(--red-hot); transform: scale(1.4); }
+.rail__dot.is-current { background: var(--red-hot); border-color: var(--red-hot); }
+.rail__dot-label {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  padding: .3rem .5rem; white-space: nowrap;
+  font-family: var(--font-data); font-size: var(--fs-nano);
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--bone); background: var(--iron); border: 1px solid var(--steel);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+.rail__dot:hover .rail__dot-label,
+.rail__dot:focus-visible .rail__dot-label { opacity: 1; }
+
+/* ==========================================================================
+   ICON BUTTONS + OVERLAYS
+   ========================================================================== */
+.iconbtn {
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--steel); color: var(--nickel);
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+}
+.iconbtn:hover { color: var(--pure); border-color: var(--gunmetal); background: var(--iron); }
+@media (max-width: 560px) { .nav__actions .iconbtn + .iconbtn { display: none; } }
+
+.overlay {
+  position: fixed; inset: 0; z-index: 80;
+  display: grid; align-items: start; justify-items: center;
+  padding: clamp(4rem, 12vh, 9rem) var(--gutter) var(--gutter);
+  background: rgba(8,9,10,.9);
+  backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--t-ui) var(--ease-out);
+}
+.overlay[data-open="true"] { opacity: 1; pointer-events: auto; }
+.overlay__panel {
+  width: min(680px, 100%);
+  background: var(--iron); border: 1px solid var(--steel);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  transform: translateY(-12px);
+  transition: transform var(--t-ui) var(--ease-out);
+  max-height: 78vh; overflow-y: auto;
+}
+.overlay[data-open="true"] .overlay__panel { transform: none; }
+.overlay__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  border-bottom: 1px solid var(--steel); padding-bottom: .85rem; margin-bottom: 1.25rem;
+}
+.overlay__input {
+  width: 100%; padding: 1rem 1.1rem;
+  background: var(--void); border: 1px solid var(--steel); color: var(--bone);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem); letter-spacing: .01em;
+}
+.overlay__input:focus { outline: none; border-color: var(--red); }
+.overlay__input::-webkit-search-cancel-button { filter: invert(1) opacity(.5); }
+[data-search-status] { margin-top: .85rem; }
+.overlay__results { margin-top: .85rem; display: grid; gap: 1px; background: var(--steel); }
+.sresult { display: grid; gap: .25rem; padding: .85rem 1rem; background: var(--iron); }
+.sresult:hover { background: var(--graphite); }
+.sresult__title { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--pure); }
+.sresult__snip { font-size: var(--fs-small); color: var(--ash); }
+
+/* ==========================================================================
+   SETTINGS
+   ========================================================================== */
+.setting {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  padding: 1.1rem 0; border-bottom: 1px solid var(--steel);
+}
+.setting:last-child { border-bottom: 0; }
+.setting__label {
+  flex: 1 1 240px; display: grid; gap: .3rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  color: var(--bone); text-transform: uppercase; letter-spacing: .02em;
+}
+.setting__label .mono { text-transform: none; letter-spacing: .04em; }
+.setting select { padding: .6rem .8rem; background: var(--void); border: 1px solid var(--steel); color: var(--bone); }
+
+/* A switch built from a checkbox: real control, real keyboard behaviour. */
+.switch {
+  appearance: none; -webkit-appearance: none;
+  width: 52px; height: 28px; flex: 0 0 auto;
+  background: var(--graphite); border: 1px solid var(--gunmetal);
+  position: relative; cursor: pointer;
+  transition: background var(--t-fast), border-color var(--t-fast);
+}
+.switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px;
+  width: 22px; height: 22px; background: var(--nickel);
+  transition: transform var(--t-ui) var(--ease-snap), background var(--t-fast);
+}
+.switch:checked { background: var(--red-deep); border-color: var(--red-hot); }
+.switch:checked::after { transform: translateX(24px); background: var(--pure); }
+
+/* ==========================================================================
+   TICKETING
+   ========================================================================== */
+.gcard {
+  position: relative; display: flex; flex-direction: column; gap: .5rem;
+  padding: 1.25rem; background: var(--iron); border: 1px solid var(--steel);
+  transition: border-color var(--t-ui), transform var(--t-ui) var(--ease-out);
+}
+.gcard:hover { border-color: var(--red); transform: translateY(-3px); }
+.gcard__head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem;
+}
+/* The date is the thing being chosen. It must never wrap to three lines
+   because a demand badge is competing with it for the same row. */
+.gcard__head > .mono { white-space: nowrap; }
+.gcard__head .badge { font-size: 8px; letter-spacing: .12em; padding: .25rem .4rem; }
+.gcard__opp {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: .95;
+  text-transform: uppercase; color: var(--pure);
+}
+.gcard__foot {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: .5rem 1rem; margin-top: auto; padding-top: .85rem; border-top: 1px solid var(--steel);
+}
+.gcard__foot > span:first-child { display: grid; gap: .1rem; }
+.gcard__price { font-family: var(--font-display); font-weight: 900; font-size: 1.9rem; color: var(--pure); line-height: 1; }
+.gcard__resale { color: var(--ash); }
+.gcard__promo { margin-top: .25rem; }
+.gcard[data-demand="high"] .badge { border-color: var(--red); color: var(--red-hot); }
+.gcard[data-demand="low"] .badge { border-color: rgba(255,176,0,.5); color: var(--advisory); }
+
+/* All-in pricing. Fees hidden until checkout is the single biggest trust
+   failure in ticketing, so the toggle is on the page, not buried. */
+.pricebar {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+  border: 1px solid var(--steel); background: var(--pitch);
+}
+.pricebar__note { flex: 1 1 260px; color: var(--ash); font-size: var(--fs-small); }
+
+.seatview { margin-top: 1rem; border: 1px solid var(--steel); }
+.seatview__img { aspect-ratio: 16 / 10; position: relative; overflow: hidden; }
+.seatview__img img { width: 100%; height: 100%; object-fit: cover; }
+.seatview__cap { padding: .7rem .9rem; border-top: 1px solid var(--steel); }
+
+/* Membership calculator */
+.calc { display: grid; gap: 1.25rem; }
+.calc__control { display: grid; gap: .5rem; }
+.calc input[type="range"] { width: 100%; accent-color: var(--red); }
+.calc__out { display: grid; gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+.calc__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: .9rem 1.1rem; background: var(--iron);
+}
+.calc__row.is-win { background: rgba(204,0,0,.12); }
+.calc__row b { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; color: var(--pure); }
+.calc__verdict { padding: 1rem 1.1rem; background: var(--graphite); }
+
+/* ==========================================================================
+   GAMEDAY / WALLET
+   ========================================================================== */
+.ticketstub {
+  display: grid; gap: 0;
+  border: 1px solid var(--steel); background: var(--iron);
+  overflow: hidden;
+}
+.ticketstub__top { padding: clamp(1.25rem, 2.4vw, 1.75rem); display: grid; gap: .5rem; }
+.ticketstub__match {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: .95;
+  text-transform: uppercase; color: var(--pure);
+}
+.ticketstub__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px dashed var(--gunmetal);
+}
+.ticketstub__grid > div { padding: .9rem 1.1rem; }
+.ticketstub__grid > div + div { border-left: 1px solid var(--steel); }
+.ticketstub__grid b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--bone); }
+.ticketstub__code {
+  padding: 1.25rem; display: grid; gap: .75rem; justify-items: center;
+  border-top: 1px solid var(--steel); background: var(--void);
+}
+.ticketstub__code svg { width: min(180px, 60%); height: auto; }
+
+.statusgrid { display: grid; gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+@media (min-width: 720px) { .statusgrid { grid-template-columns: repeat(3, 1fr); } }
+.statuscell { padding: 1.25rem; background: var(--iron); display: grid; gap: .4rem; align-content: start; }
+.statuscell b { font-family: var(--font-display); font-weight: 900; font-size: 1.75rem; color: var(--pure); line-height: 1; }
+.statuscell[data-state="good"] b { color: #4ADE80; }
+.statuscell[data-state="busy"] b { color: var(--advisory); }
+.statuscell[data-state="closed"] b { color: var(--red-hot); }
+
+/* ==========================================================================
+   WIN PROBABILITY + EDGE
+   ========================================================================== */
+.wp__chart { width: 100%; height: clamp(170px, 22vw, 230px); }
+.wp__area { fill: rgba(204,0,0,.14); }
+.wp__line { fill: none; stroke: var(--red-hot); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.wp__mid { stroke: var(--gunmetal); stroke-dasharray: 3 4; stroke-width: 1; }
+.wp__period { stroke: var(--steel); stroke-width: 1; }
+/* Period labels share the plot width evenly; the readout sits apart on the
+   right. justify-content alone collapsed all three into the left corner
+   once a fourth element was added. */
+.wp__axis { display: flex; align-items: baseline; gap: 1rem; margin-top: .5rem; }
+.wp__axis > .mono { flex: 1 1 0; text-align: center; }
+.wp__axis > .mono:first-child { text-align: left; }
+.wp__axis > .push { flex: 0 0 auto; }
+
+.edge { display: grid; gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+.edge__row {
+  display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem;
+  padding: .9rem 1.1rem; background: var(--iron); align-items: baseline;
+}
+.edge__row .mono:last-child { grid-column: 1 / -1; color: var(--ash); }
+.edge__val { font-family: var(--font-display); font-weight: 900; font-size: 1.75rem; color: var(--pure); }
+.edge__val small { font-size: .75rem; color: var(--ash); font-weight: 400; }
+
+.tl__clip {
+  display: inline-flex; align-items: center; gap: .4rem; margin-top: .5rem;
+  padding: .35rem .6rem; border: 1px solid var(--steel);
+  font-family: var(--font-data); font-size: var(--fs-nano);
+  letter-spacing: .16em; text-transform: uppercase; color: var(--nickel);
+  transition: all var(--t-fast) var(--ease-out);
+}
+.tl__clip:hover { border-color: var(--red); color: var(--pure); background: var(--red-deep); }
+
+/* ==========================================================================
+   STORM TRACKER (offseason)
+   ========================================================================== */
+.otd { display: grid; gap: 1rem; }
+.otd__year {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(3.5rem, 8vw, 7rem); line-height: .8; color: var(--red-hot);
+}
+.pipeline { display: grid; gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+.pipeline__row {
+  display: grid; gap: .3rem 1rem; padding: 1rem 1.1rem; background: var(--iron);
+  grid-template-columns: 1fr auto;
+}
+.pipeline__row:hover { background: var(--graphite); }
+.pipeline__name { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--bone); }
+.pipeline__meta { grid-column: 1 / -1; color: var(--ash); }
+
+/* ==========================================================================
+   FOOTER additions
+   ========================================================================== */
+.footer__meta { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
+.footer__lang { display: flex; gap: .75rem; padding-left: 1.25rem; border-left: 1px solid var(--steel); }
+.footer__lang a[aria-current] { color: var(--bone); }
+
+/* ==========================================================================
+   FOLLOW BUTTON
+   ========================================================================== */
+.player__fav {
+  position: absolute; top: .6rem; right: .6rem; z-index: 4;
+  display: grid; place-items: center; width: 32px; height: 32px;
+  border: 1px solid var(--steel); background: rgba(8,9,10,.7);
+  color: var(--nickel);
+  transition: all var(--t-fast) var(--ease-out);
+}
+.player__fav svg { fill: none; stroke: currentColor; stroke-width: 1.3; }
+.player__fav:hover { border-color: var(--red); color: var(--pure); }
+.player__fav[aria-pressed="true"] { color: var(--advisory); border-color: var(--advisory); }
+.player__fav[aria-pressed="true"] svg { fill: currentColor; }
+
+/* ==========================================================================
+   ACCESSIBILITY PAGE
+   ========================================================================== */
+.a11y-list { display: grid; gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+.a11y-item { padding: 1.25rem; background: var(--iron); display: grid; gap: .4rem; }
+.a11y-item b { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--pure); }

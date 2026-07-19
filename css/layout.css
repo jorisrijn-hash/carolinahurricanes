@@ -1,0 +1,144 @@
+/* ==========================================================================
+   LAYOUT - shell, grid, the left instrument rail, section framing
+   ========================================================================== */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.shell--wide { max-width: none; padding-inline: var(--gutter); }
+.shell--tight { max-width: 1180px; }
+
+/* Everything to the right of the fixed rail. */
+.page { padding-left: var(--rail); }
+
+/* ---- The instrument rail -------------------------------------------------
+   A 62px fixed strip carrying: the mark, a scroll gauge that reads like a
+   pressure column, and the live section coordinate. It replaces a generic
+   "scroll down" cue with something that stays useful the whole page.     */
+.rail {
+  position: fixed; inset: 0 auto 0 0; z-index: var(--z-rail);
+  width: var(--rail);
+  display: none;
+  flex-direction: column; align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  border-right: 1px solid var(--steel);
+  background: linear-gradient(180deg, var(--pitch), var(--void));
+}
+@media (min-width: 1180px) { .rail { display: flex; } }
+
+.rail__mark { width: 26px; opacity: .9; }
+.rail__mark img { width: 100%; }
+
+.rail__gauge {
+  position: relative;
+  flex: 1; width: 1px;
+  margin: 1.5rem 0;
+  background: var(--steel);
+}
+.rail__gauge::before {
+  content: "";
+  position: absolute; inset: 0 -1px auto -1px;
+  height: var(--scroll, 0%);
+  background: linear-gradient(180deg, var(--red-hot), var(--red-deep));
+  box-shadow: 0 0 12px -1px rgba(204,0,0,.9);
+}
+/* Tick marks every 20% - reads as a measuring column, not a progress bar. */
+.rail__ticks { position: absolute; inset: 0; }
+.rail__ticks span {
+  position: absolute; left: -4px; width: 9px; height: 1px;
+  background: var(--gunmetal);
+}
+
+.rail__coord {
+  writing-mode: vertical-rl;
+  font-family: var(--font-data);
+  font-size: var(--fs-nano);
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+/* ---- Section framing -----------------------------------------------------
+   Sections are separated by a hairline plus a short red vector tick, not by
+   empty space. Density is part of the brand.                             */
+.section { position: relative; padding-block: var(--section-y); }
+.section--flush { padding-block: 0; }
+.section--top { padding-top: clamp(2.5rem, 5vw, 5rem); }
+
+.section + .section::before {
+  content: "";
+  position: absolute; inset: 0 var(--gutter) auto;
+  height: 1px; background: var(--steel);
+}
+.section--seam::after {
+  content: "";
+  position: absolute; top: 0; left: var(--gutter);
+  width: 84px; height: 2px; background: var(--red);
+}
+
+/* Section head: mono eyebrow carrying real data + display title. */
+.head {
+  display: grid;
+  gap: clamp(.75rem, 1.4vw, 1.25rem);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+.head__meta {
+  display: flex; flex-wrap: wrap; gap: 1.25rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--steel);
+  padding-bottom: .75rem;
+}
+.head__meta > :last-child { margin-left: auto; }
+.head__title { max-width: 22ch; }
+
+/* ---- Grids -------------------------------------------------------------- */
+.grid { display: grid; gap: clamp(1rem, 1.6vw, 1.75rem); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+.grid--12 { grid-template-columns: repeat(12, 1fr); }
+
+@media (max-width: 1080px) {
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 680px) {
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+}
+
+.span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; } .span-6 { grid-column: span 6; }
+.span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; }
+.span-9 { grid-column: span 9; } .span-12 { grid-column: span 12; }
+@media (max-width: 900px) {
+  .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9 { grid-column: span 12; }
+}
+
+.stack { display: grid; gap: var(--s-4); }
+.stack--lg { gap: var(--s-6); }
+.row { display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; }
+.row--between { justify-content: space-between; }
+.push { margin-left: auto; }
+
+/* Below-fold sections skip layout+paint until near the viewport. */
+.defer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* Horizontal rails (video, galleries, schedule strip) - native scroll with
+   snap. No carousel library, no autoplay, keyboard reachable. */
+.rail-scroll {
+  display: grid; grid-auto-flow: column;
+  gap: clamp(.75rem, 1.2vw, 1.25rem);
+  overflow-x: auto; overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gunmetal) transparent;
+}
+.rail-scroll > * { scroll-snap-align: start; }
+.rail-scroll::-webkit-scrollbar { height: 3px; }
+.rail-scroll::-webkit-scrollbar-thumb { background: var(--gunmetal); }
+.rail-scroll::-webkit-scrollbar-track { background: var(--iron); }

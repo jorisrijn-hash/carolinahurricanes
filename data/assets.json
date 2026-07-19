@@ -1,0 +1,210 @@
+{
+  "_readme": "Every photographic slot on the site. Fill source, credit and licence, then run tools/fetch-assets.py. The script refuses any entry with those fields empty, so nothing unlicensed can reach the build.",
+  "_sourcing": {
+    "team_and_league_marks": "Club communications or NHL Media. Trademarked: written permission required. Do not scrape a CDN.",
+    "player_portraits": "NHL Images (NHLI) or Getty Images editorial licence. Headshot slots live in data/roster.json under photo.",
+    "editorial_action": "Getty Images Sport or the club's own team photographer, which is usually cheaper and always better matched to the brand.",
+    "royalty_free_fallback": "Unsplash Licence or Pexels Licence for generic ice, arena and equipment shots. Search terms per slot are in note. Verify the licence on the page itself, not from a search result.",
+    "never": "Google Images, Pinterest, fan sites, or any file whose licence you cannot name."
+  },
+  "output": {
+    "formats": [
+      "avif",
+      "webp",
+      "jpg"
+    ],
+    "widths": [
+      640,
+      1280,
+      1920,
+      2400
+    ],
+    "quality": {
+      "avif": 50,
+      "webp": 72,
+      "jpg": 82
+    }
+  },
+  "slots": [
+    {
+      "id": "hero-action",
+      "path": "assets/img/photo/hero-action.jpg",
+      "width": 2400,
+      "height": 1350,
+      "note": "Hero. Player driving the puck, low angle, spray visible.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "news-lead",
+      "path": "assets/img/photo/news-lead.jpg",
+      "width": 2400,
+      "height": 1350,
+      "note": "Editorial lead. Celebration or open ice check.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "check",
+      "path": "assets/img/photo/check.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Body check into the boards.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "save",
+      "path": "assets/img/photo/save.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Goaltender making a pad save, puck visible.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "celebration",
+      "path": "assets/img/photo/celebration.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Goal celebration at the glass.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "faceoff",
+      "path": "assets/img/photo/faceoff.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Faceoff, centres tied up, linesman dropping the puck.",
+      "kind": "action",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "arena-bowl",
+      "path": "assets/img/photo/arena-bowl.jpg",
+      "width": 2400,
+      "height": 1350,
+      "note": "Full bowl from an upper corner at puck drop.",
+      "kind": "arena",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "crowd",
+      "path": "assets/img/photo/crowd.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Crowd on their feet, red out.",
+      "kind": "arena",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "boards",
+      "path": "assets/img/photo/boards.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Dasher boards and kickplate, shallow depth of field.",
+      "kind": "arena",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "training",
+      "path": "assets/img/photo/training.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Practice drill, cones and pucks on the ice.",
+      "kind": "training",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "skates",
+      "path": "assets/img/photo/skates.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Skate blades cutting, close crop, shavings.",
+      "kind": "detail",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "id": "locker",
+      "path": "assets/img/photo/locker.jpg",
+      "width": 1600,
+      "height": 1067,
+      "note": "Dressing room stalls before warmups.",
+      "kind": "detail",
+      "source": "",
+      "credit": "",
+      "licence": "",
+      "focal": [
+        0.5,
+        0.42
+      ]
+    }
+  ]
+}
